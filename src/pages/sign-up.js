@@ -19,16 +19,15 @@ class SignupPage extends React.Component {
     password: ''
   }
 
-  handleSubmit = (values) => {
-    console.log('formmm', values)
-    this.props.handleSignUp(this.state, this.props.allCookies.csrftoken);
+  handleSubmit = () => {
+    this.props.handleSignUp(this.state);
   }
 
   render() {
     return (
       <section id="sign-up">
         <h2>Please create an account</h2>
-        <Formik initialState={this.state}>
+        <Formik initialValues={this.state} onSubmit={this.handleSubmit}>
           { ({ handleSubmit }) => {
             return (
               <form onSubmit={handleSubmit}>

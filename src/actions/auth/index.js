@@ -4,16 +4,17 @@ import fetch from '../../fetch';
 
 const NAMESPACE = 'auth';
 
-const signUpAction = dispatch => async ({ email, password }, token) => {  
-  const response = await fetch(NAMESPACE, {
-    method: 'POST',
-    data: { email, password },
-    headers: {
-      'X-CSRF-TOKEN': token
-    }
-  });
+const signUpAction = dispatch => async ({ email, password }) => {
+  let response;
 
-  console.log(response)
+  try {
+    response = await fetch(NAMESPACE, {
+      method: 'POST',
+      data: { email, password },
+    });
+  } catch({ json }) {
+    console.log(json);
+  }
 };
 
 export {
