@@ -12,6 +12,7 @@ const mapDispatchToProps = dispatch => ({
   handleSignUp: signUpAction(dispatch)
 });
 
+const getForm = component => el => component.form = el;
 
 class SignupPage extends React.Component {
   state = {
@@ -19,16 +20,36 @@ class SignupPage extends React.Component {
     password: ''
   }
 
-  handleSubmit = () => {
-    this.props.handleSignUp(this.state);
+  componentDidUpdate() {
+    const serverErrors = this.props.errors;
+    // TODO: this can all be encapsulated in a component
+    // will want the form to take prefixes as well, in case nested errors are needed
+    const formattedErrors = Object.entries(serverErrors).reduce((memo, [name, message]) => {
+      return { 
+        ...memo,
+        [name]: `${name} ${message}`,
+      };
+    }, {});
+    
+    // TODO: why do you have to manage this yourself??
+    this.form.setSubmitting(false);
+    this.form.setErrors(formattedErrors)
+  }
+
+  handleSubmit = (values) => {
+    this.props.handleSignUp(values);
   }
 
   render() {
     return (
       <section id="sign-up">
         <h2>Please create an account</h2>
-        <Formik initialValues={this.state} onSubmit={this.handleSubmit}>
-          { ({ handleSubmit }) => {
+        <Formik
+          initialValues={this.state}
+          onSubmit={this.handleSubmit}
+          ref={getForm(this)}
+        >
+          {({ handleSubmit, isSubmitting }) => {
             return (
               <form onSubmit={handleSubmit}>
                 <Fieldset
@@ -42,7 +63,7 @@ class SignupPage extends React.Component {
                   type="password"
                 />
                 <div>
-                  <button type="submit">
+                  <button type="submit" disabled={isSubmitting}>
                     Sign up!
                   </button>
                 </div>

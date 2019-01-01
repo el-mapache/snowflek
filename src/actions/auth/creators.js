@@ -6,6 +6,12 @@ const signUp = ({ email, password }) => ({
   password
 });
 
+const setErrors = (errors) => ({
+  type: auth.ERROR,
+  errors
+});
+
 export {
-  signUp
+  signUp,
+  setErrors
 };
