@@ -2,7 +2,8 @@ import { auth } from '../actions';
 const initialState = {
   isAuthenticated: false,
   // TODO: this should be a separate thing I think
-  user: {},
+  user: null,
+  authHeaders: null,
   errors: {},
 };
 
@@ -10,9 +11,11 @@ const authReducer = (state = initialState, { type, ...rest }) => {
   switch(type) {
     case auth.SIGN_IN:
     case auth.SIGN_UP:
+    case auth.VERIFY_TOKEN:
       return {
         errors: {},
         user: rest.data,
+        authHeaders: { ...rest.authHeaders },
         isAuthenticated: true,
       };
     case auth.ERROR:
@@ -25,6 +28,12 @@ const authReducer = (state = initialState, { type, ...rest }) => {
           ...state.errors,
           ...fieldErrors,
         }
+      };
+    case auth.SET_AUTH_HEADERS:
+      return {
+        ...initialState,
+        authHeaders: { ...rest.authHeaders },
+        isAuthenticated: true,
       };
     case auth.SIGN_OUT:
       return initialState;

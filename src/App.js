@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { setCookie } from './actions/cookie';
 import './app.css';
 
@@ -18,12 +18,7 @@ class App extends Component {
   }
  
   render() {
-    return (
-      <div className="app">
-        <h1>Slowdrip</h1>
-        <Link to="/sign-up">Why not make an account, friend?</Link>
-      </div>
-    );
+    return this.props.children;
   }
 }
 

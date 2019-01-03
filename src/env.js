@@ -1,5 +1,6 @@
 const development = {
-  apiHost: 'http://localhost:3000'
+  apiHost: 'http://localhost:3000',
+  authCookieKey: 'authToken',
 };
 
 const getConfigsForEnv = () => {

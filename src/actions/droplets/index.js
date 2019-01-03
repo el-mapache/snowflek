@@ -1,16 +1,16 @@
 import { fetchAllDroplets, onFetchAllDroplets } from './creators';
+import fetch from '../../fetch';
 
-const getDropletsForUser = dispatch => ({ userId }) => {
-  let response;
-
-  try {
-    response = fetch(`users/${userId}/droplets`);
-    console.log(response);
-  } catch(errors) {
-    console.log(errors);
-  }
+const getDropletsForUser = dispatch => () => {
+  fetch('droplets')
+    .then((response) => {
+      dispatch(onFetchAllDroplets(response));
+    })
+    .catch((errors) => {
+      console.log(errors);
+    });
 };
 
 export {
-  getDropletsForUser
-}
+  getDropletsForUser,
+};

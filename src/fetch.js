@@ -7,16 +7,14 @@ const apiPath = `${env.apiHost}/api/v1`;
 const method = 'GET';
 const credentials = 'same-origin';
 const headers = {
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
-  'x-csrf-token': store.getState().cookie.cookie, 
+  accept: 'application/json',
+  'content-type': 'application/json',
 };
 
 const baseConfigs = {
   credentials,
   headers,
   method,
-  mode: 'cors'
 };
 
 const mergeParams = (url, params) =>
@@ -52,22 +50,31 @@ const checkStatus = (response) => {
 const parseJSON = response => response.json();
 
 const fetchWrapper = (url, configs = {}) => {
+  const state = store.getState();
   let requestConfigs;
   let apiUrl = `${apiPath}/${url}`
 
-  if (configs.headers) {
-    baseConfigs.headers = {
-      ...baseConfigs.headers,
-      ...configs.headers
-    };
-  }
+  baseConfigs.headers = {
+    ...baseConfigs.headers,
+    ...state.auth.authHeaders,
+    ...configs.headers || {},
+    'x-csrf-token': state.cookie.cookie
+  };
 
-  if (configs.method && !(/get|delete/i).test(configs.method)) {
-    requestConfigs = {
-      ...baseConfigs,
-      method: configs.method,
-      body: JSON.stringify(configs.data),
-    };
+  if (configs.method) {
+    if (!(/get|delete/i).test(configs.method)) {
+      requestConfigs = {
+        ...baseConfigs,
+        mode: 'cors',
+        method: configs.method,
+        body: JSON.stringify(configs.data),
+      };
+    } else {
+      requestConfigs = {
+        ...baseConfigs,
+        method: configs.method,
+      };
+    }
   } else {
     requestConfigs = baseConfigs;
   }
@@ -76,7 +83,24 @@ const fetchWrapper = (url, configs = {}) => {
 
   return fetch(requestUrl, requestConfigs)
     .then(checkStatus)
-    .then(parseJSON);
+    .then(async (response) => {
+      const json = await parseJSON(response);
+      const { headers } = response;
+  
+      return {
+        ...json,
+        authHeaders: {
+          'access-token': headers.get('access-token'),
+          client: headers.get('client'),
+          uid: headers.get('uid'),
+        },
+      };
+    });
 }
+
+// add a chainable method to plug into this `then` chain and get the headers,
+// essentially middleware queueing
+// write a small promise queue, promise.all
+// check for content type when parsing json!
 
 export default fetchWrapper;

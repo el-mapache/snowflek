@@ -8,6 +8,7 @@
   "dependencies": {
     "formik": "^1.4.1",
     "keymirror": "^0.1.1",
+    "moment": "^2.23.0",
     "normalizr": "^3.3.0",
     "react": "^16.7.0",
     "react-cookie": "^3.0.8",
