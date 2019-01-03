@@ -10,10 +10,10 @@ import SigninPage from './pages/sign-in';
 import OwnDropletsPage from './pages/own-droplets';
 
 const Routes = () => (
-  <App>
-    <Header />
-    <AuthProvider>
-      {(isAuthenticated) => (
+  <AuthProvider>
+    {(isAuthenticated) => (
+      <App>
+      <Header isAuthenticated={isAuthenticated} />
         <Switch>
           <RedirectRoute path="/sign-in" component={SigninPage} shouldRedirect={isAuthenticated} redirectTo="/droplets" />
           <RedirectRoute path="/sign-up" component={SignupPage} shouldRedirect={isAuthenticated} redirectTo="/droplets" />
@@ -23,9 +23,9 @@ const Routes = () => (
             component={OwnDropletsPage}
           />
         </Switch>
-      )}
-    </AuthProvider>
-  </App>
+      </App>
+    )}
+  </AuthProvider>
 );
 
 export default Routes;
