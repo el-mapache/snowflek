@@ -9,7 +9,13 @@ const onFetchAllDroplets = ({ droplets }) => ({
   droplets,
 });
 
+const onCreateDroplet = ({ droplets }) => ({
+  type: droplet.ON_CREATE,
+  droplets,
+});
+
 export {
   fetchAllDroplets,
   onFetchAllDroplets,
-}
+  onCreateDroplet,
+};

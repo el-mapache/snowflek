@@ -16,6 +16,7 @@ const cookie = keyMirror({
 const droplet = keyMirror({
   ON_FETCH_ALL: null,
   FETCH_ALL: null,
+  ON_CREATE: null,
 });
 
 export {

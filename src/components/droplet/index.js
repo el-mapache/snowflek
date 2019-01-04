@@ -8,9 +8,7 @@ class Droplet extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>{this.props.content}</p>
-      </div>
+      <p>{this.props.content}</p>
     )
   }
 }
