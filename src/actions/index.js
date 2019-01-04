@@ -19,7 +19,14 @@ const droplet = keyMirror({
   ON_CREATE: null,
 });
 
+const appMessages = keyMirror({
+  ADD: null,
+  CLEAR: null,
+  CLEAR_ALL: null,
+});
+
 export {
+  appMessages,
   auth,
   cookie,
   droplet,
