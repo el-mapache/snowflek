@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import Fieldset from '../fieldset';
 import { createDroplet } from '../../actions/droplets';
+import DropletValidator from '../../validators/droplet';
 
 const getForm = component => el => component.form = el;
 
@@ -11,11 +12,28 @@ const mapDispatchToProps = dispatch => ({
   handleSubmit: createDroplet(dispatch),
 });
 
+const handleValidation = (values) => {
+  const validator = DropletValidator(values);
+  let errors = {};
+
+  if (!validator.hasContent()) {
+    errors.content =  'Droplet can\'t be blank';
+  } else if (!validator.atMaxLength()) {
+    errors.content = 'A droplet is limited to 300 characters.';
+  }
+
+  return errors
+}
+
 class CreateDroplet extends React.Component {
   state = {
     content: ''
   }
 
+  componentDidUpdate() {
+    this.form.setSubmitting(false);
+  }
+ 
   handleSubmit = (values) => {
     this.props.handleSubmit(values);
   }
@@ -26,15 +44,7 @@ class CreateDroplet extends React.Component {
         initialValues={this.state}
         onSubmit={this.handleSubmit}
         ref={getForm(this)}
-        validate={(values) => {
-          let errors = {};
-
-          if (!values.content) {
-            errors.content =  'Droplet can\'t be blank';
-          }
-
-          return errors
-        }}
+        validate={handleValidation}
       >
         {({ handleSubmit, isSubmitting }) => {
           return (
