@@ -53,7 +53,10 @@ class CreateDroplet extends React.Component {
               <Fieldset
                 label="what do you want to say?"
                 name="content"
-                type="text"
+                type="textarea"
+                rows="6"
+                cols="60"
+                required
               />
               <div>
                 <button type="submit" disabled={isSubmitting}>

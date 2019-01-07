@@ -1,11 +1,12 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
+import logger from 'redux-logger';
 import updateSession from './middlewares/session';
 import appMessagesReducer from './reducers/app-messages';
 import authReducer from './reducers/auth';
 import cookieReducer from './reducers/cookie';
 import dropletReducer from './reducers/droplet';
 
-const middlewares = applyMiddleware(updateSession);
+const middlewares = applyMiddleware(updateSession, logger);
 const appState = combineReducers({
   auth: authReducer,
   cookie: cookieReducer,

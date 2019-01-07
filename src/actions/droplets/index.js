@@ -1,9 +1,11 @@
-import { onCreateDroplet, onFetchAllDroplets } from './creators';
+import { onCreateDroplet, fetchAllDroplets, onFetchAllDroplets } from './creators';
 import fetch from '../../fetch';
 
 const NAMESPACE = 'droplets';
 
 const getDropletsForUser = dispatch => () => {
+  dispatch(fetchAllDroplets());
+
   fetch(`${NAMESPACE}`)
     .then((response) => {
       dispatch(onFetchAllDroplets(response));
