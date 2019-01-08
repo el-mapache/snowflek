@@ -1,5 +1,5 @@
 import { setAuthHeaders, signUp, signIn, signOut, setErrors } from './creators';
-import fetch from '../../fetch';
+import fetch from '../../utils/slowdrip-fetch';
 
 const NAMESPACE = 'auth';
 

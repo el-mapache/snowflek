@@ -1,5 +1,5 @@
 import { onCreateDroplet, fetchAllDroplets, onFetchAllDroplets } from './creators';
-import fetch from '../../fetch';
+import fetch from '../../utils/slowdrip-fetch';
 
 const NAMESPACE = 'droplets';
 
