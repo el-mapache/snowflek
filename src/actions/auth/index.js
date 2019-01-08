@@ -1,4 +1,11 @@
-import { setAuthHeaders, signUp, signIn, signOut, setErrors } from './creators';
+import {
+  setAuthHeaders,
+  signUp,
+  signIn,
+  signOut,
+  setErrors
+} from './creators';
+import { addAppMessage } from '../app-messages/creators';
 import fetch from '../../utils/slowdrip-fetch';
 
 const NAMESPACE = 'auth';
@@ -24,7 +31,10 @@ const signInAction = dispatch => ({ email, password }) => {
       dispatch(signIn(response));
     })
     .catch((error) => {
-      console.log(error);
+      dispatch(addAppMessage({
+        level: 'error',
+        messages: error.json.errors
+      }));
     });
 };
 
