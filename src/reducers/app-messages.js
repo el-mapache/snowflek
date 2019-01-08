@@ -21,11 +21,11 @@ const appMessagesReducer = (state = initialState, { type, ...rest }) => {
         messages: [...state.messages, ...messages]
       };
     case appMessages.CLEAR:
-      state.messages.splice(rest.index, 1);
+      const safeState = state.messages.slice();
+      safeState.splice(rest.index, 1);
 
-      debugger
       return {
-        messages: [ ...state.messages ]
+        messages: [ ...safeState ],
       };
     case appMessages.CLEAR_ALL:
     default:
