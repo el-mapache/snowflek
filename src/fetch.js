@@ -48,7 +48,7 @@ const parseJSON = response => response.json();
 const _fetch = ({ url, configs = {} }) => {
   let requestConfigs = {
     ...baseConfigs,
-    headers: { ...(configs.headers || headers) },
+    headers: { ...headers, ...(configs.headers || {}) },
     method: configs.method || method,
   };
 

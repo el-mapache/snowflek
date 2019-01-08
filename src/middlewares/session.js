@@ -9,7 +9,7 @@ const updateSession = store => next => action => {
   if ([auth.SIGN_UP, auth.SIGN_IN].includes(type)) {
     cookies.set(env.authCookieKey, JSON.stringify({
       ...rest.authHeaders,
-      user_id: rest.user.id
+      uid: rest.user.id
     }), {
       path: '/'
     });
