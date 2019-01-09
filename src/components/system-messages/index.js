@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
 class SystemMessage extends React.Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
-    level: PropTypes.oneOf([ 'error' ]).isRequired,
+    level: PropTypes.oneOf([ 'error', 'info', 'success' ]).isRequired,
     message: PropTypes.string.isRequired,
     onClick: PropTypes.func.isRequired,
   }
@@ -26,7 +26,9 @@ class SystemMessage extends React.Component {
   render() {
     return (
       <div>
-        <p><b>{ this.props.message }</b></p>
+        <p>
+          <b>{ this.props.message }</b>
+        </p>
         <button type="button" onClick={this.handleClick}>
           clear
         </button>

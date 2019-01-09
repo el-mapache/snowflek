@@ -18,6 +18,9 @@ class DropletValidator {
   atMaxLength() {
     return this.droplet.content.length <= 300;
   }
+
+  // use moment, check date of most recent droplet, if its today, dont show,
+  // the create interface
 }
 
 export default (droplet = {}) => {

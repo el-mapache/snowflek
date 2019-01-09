@@ -7,6 +7,7 @@ import {
 } from './creators';
 import { addAppMessage } from '../app-messages/creators';
 import fetch from '../../utils/slowdrip-fetch';
+import { appMessages } from '..';
 
 const NAMESPACE = 'auth';
 
@@ -44,10 +45,16 @@ const signOutAction = dispatch => () => {
   })
     .then(() => {
       dispatch(signOut());
+      dispatch(appMessages({
+        level: 'success',
+        messages: 'You\'ve signed out successfully!',
+      }))
     })
     .catch((error) => {
-      dispatch(signOut());
-      console.log('error signing out!', error);
+      dispatch(appMessages({
+        level: 'error',
+        messages: error.json.errors,
+      }));
     });
 }
 

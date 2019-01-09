@@ -3,6 +3,11 @@ import cookieSelector from '../../utils/cookie-selector';
 import { connect } from 'react-redux';
 import { setHeadersAction } from '../../actions/auth';
 
+const mapStateToProps = ({ auth }) => auth;
+const mapDispatchToProps = dispatch => ({
+  setAuthHeaders: setHeadersAction(dispatch),
+});
+
 class Auth extends React.Component {
   componentDidMount() {
     const headers = cookieSelector.getAuthHeaders();
@@ -16,11 +21,6 @@ class Auth extends React.Component {
     return this.props.children(this.props.isAuthenticated);
   }
 }
-
-const mapStateToProps = ({ auth }) => auth;
-const mapDispatchToProps = dispatch => ({
-  setAuthHeaders: setHeadersAction(dispatch),
-});
 
 const AuthProvider = connect(mapStateToProps, mapDispatchToProps)(Auth);
 
