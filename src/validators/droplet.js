@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const dropletShape = {
   content: '',
   created_at: null,
@@ -19,8 +21,20 @@ class DropletValidator {
     return this.droplet.content.length <= 300;
   }
 
-  // use moment, check date of most recent droplet, if its today, dont show,
-  // the create interface
+  dropletForToday() {
+    const { created_at } = this.droplet;
+    let dropletExists = false;
+
+    if (!created_at) {
+      return dropletExists;
+    }
+
+    if (!moment().diff(created_at, 'days')) {
+      dropletExists = true;
+    }
+
+    return dropletExists;
+  }
 }
 
 export default (droplet = {}) => {

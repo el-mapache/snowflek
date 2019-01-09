@@ -34,10 +34,10 @@ class CreateDroplet extends React.Component {
   }
 
   componentDidUpdate() {
-    const serverErrors = this.props.errors;
+    const serverErrorsList = Object.entried(this.props.errors);
     // TODO: this can all be encapsulated in a component
     // will want the form to take prefixes as well, in case nested errors are needed
-    const formattedErrors = Object.entries(serverErrors).reduce((memo, [name, message]) => {
+    const formattedErrors = serverErrorsList.reduce((memo, [name, message]) => {
       return {
         ...memo,
         [name]: `${message}`,
@@ -69,12 +69,11 @@ class CreateDroplet extends React.Component {
             <form onSubmit={handleSubmit}>
               <h3>Hey friend, why not write something today?</h3>
               <Fieldset
-                label="what do you want to say?"
+                label="What's on your mind today?"
                 name="content"
                 type="textarea"
                 rows="6"
                 cols="60"
-                required
               />
               <div>
                 <button type="submit" disabled={isSubmitting}>
