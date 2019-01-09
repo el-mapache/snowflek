@@ -14,8 +14,14 @@ const onCreateDroplet = ({ droplets }) => ({
   droplets,
 });
 
+const onCreateDropletError = ({ error }) => ({
+  type: droplet.ON_CREATE_ERROR,
+  error,
+});
+
 export {
   fetchAllDroplets,
   onFetchAllDroplets,
   onCreateDroplet,
+  onCreateDropletError,
 };

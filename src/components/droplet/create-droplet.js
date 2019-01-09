@@ -7,7 +7,10 @@ import DropletValidator from '../../validators/droplet';
 
 const getForm = component => el => component.form = el;
 
-const mapStateToProps = state => state;
+const mapStateToProps = ({ droplets }) => {
+  return { errors: droplets.errors };
+};
+
 const mapDispatchToProps = dispatch => ({
   handleSubmit: createDroplet(dispatch),
 });
@@ -31,7 +34,22 @@ class CreateDroplet extends React.Component {
   }
 
   componentDidUpdate() {
+    const serverErrors = this.props.errors;
+    // TODO: this can all be encapsulated in a component
+    // will want the form to take prefixes as well, in case nested errors are needed
+    const formattedErrors = Object.entries(serverErrors).reduce((memo, [name, message]) => {
+      return {
+        ...memo,
+        [name]: `${message}`,
+      };
+    }, {});
+
+    if (!Object.keys(formattedErrors).length) {
+      this.form.resetForm();
+    }
+
     this.form.setSubmitting(false);
+    this.form.setErrors(formattedErrors);
   }
  
   handleSubmit = (values) => {

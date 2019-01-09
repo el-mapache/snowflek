@@ -16,7 +16,7 @@ const getForm = component => el => component.form = el;
 class SigninPage extends React.Component {
   state = {
     email: '',
-    password: ''
+    password: '',
   }
 
   componentDidUpdate() {
@@ -33,8 +33,7 @@ class SigninPage extends React.Component {
     if (!Object.keys(formattedErrors).length) {
       this.form.resetForm();
     }
-    
-    // TODO: why do you have to manage this yourself??
+
     this.form.setSubmitting(false);
     this.form.setErrors(formattedErrors);
   }

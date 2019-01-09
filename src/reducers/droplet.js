@@ -2,6 +2,7 @@ import { droplet } from '../actions';
 
 const initialState = {
   droplets: [],
+  errors: {},
   isFetching: false,
 };
 
@@ -15,6 +16,7 @@ const dropletsReducer = (state = initialState, { type, ...rest }) => {
     }
     case droplet.ON_FETCH_ALL:
       return {
+        ...state,
         droplets: rest.droplets,
         isFetching: false,
       };
@@ -22,7 +24,13 @@ const dropletsReducer = (state = initialState, { type, ...rest }) => {
       return {
         // for now, we want to show the latest (just created) droplet first in the list
         droplets: [...rest.droplets, ...state.droplets],
+        errors: {},
         isFetching: false,
+      };
+    case droplet.ON_CREATE_ERROR:
+      return {
+        ...state,
+        errors: { 'content': rest.error[0] }
       };
     default:
       return initialState;

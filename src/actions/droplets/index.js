@@ -1,17 +1,29 @@
-import { onCreateDroplet, fetchAllDroplets, onFetchAllDroplets } from './creators';
+import {
+  onCreateDroplet,
+  fetchAllDroplets,
+  onFetchAllDroplets,
+  onCreateDropletError
+} from './creators';
+import {
+ addAppMessage
+} from '../app-messages/creators';
+
 import fetch from '../../utils/slowdrip-fetch';
 
 const NAMESPACE = 'droplets';
 
-const getDropletsForUser = dispatch => () => {
+const getDropletsForUser = (dispatch) => () => {
   dispatch(fetchAllDroplets());
 
   fetch(`${NAMESPACE}`)
     .then((response) => {
       dispatch(onFetchAllDroplets(response));
     })
-    .catch((errors) => {
-      console.log(errors);
+    .catch((error) => {
+      dispatch(addAppMessage({
+        level: 'error',
+        messages: error.json.errors
+      }));
     });
 };
 
@@ -24,7 +36,7 @@ const createDroplet = dispatch => ({ content }) => {
     dispatch(onCreateDroplet(response));
   })
   .catch((error) => {
-    console.log('hey an error', error);
+    dispatch(onCreateDropletError({ error: error.json.errors }));
   })
 };
 

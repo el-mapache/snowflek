@@ -2,14 +2,14 @@ import { Cookies } from 'react-cookie';
 import env from '../env';
 import { auth } from '../actions';
 
-const updateSession = store => next => action => {
+const updateSession = () => next => action => {
   const { type, ...rest } = action;
   const cookies = new Cookies();
 
   if ([auth.SIGN_UP, auth.SIGN_IN].includes(type)) {
     cookies.set(env.authCookieKey, JSON.stringify({
       ...rest.authHeaders,
-      uid: rest.user.id
+      userId: rest.user.id,
     }), {
       path: '/'
     });

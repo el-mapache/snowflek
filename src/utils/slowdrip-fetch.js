@@ -8,6 +8,7 @@ const getAuthHeaders = () => {
   const appState = store.getState();
   return {
     'x-csrf-token': appState.cookie.cookie,
+    'token-type': 'Bearer',
     ...appState.auth.authHeaders,
   };
 };
@@ -16,6 +17,7 @@ const unpackAuthHeaders = (headers) => ({
   'access-token': headers.get('access-token'),
   client: headers.get('client'),
   uid: headers.get('uid'),
+  expiry: headers.get('expiry'),
 });
 
 // Helper function that add auth headers to each payload of

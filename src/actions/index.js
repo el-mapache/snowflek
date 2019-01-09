@@ -17,6 +17,7 @@ const droplet = keyMirror({
   ON_FETCH_ALL: null,
   FETCH_ALL: null,
   ON_CREATE: null,
+  ON_CREATE_ERROR: null,
 });
 
 const appMessages = keyMirror({
