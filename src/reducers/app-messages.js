@@ -13,12 +13,13 @@ const initialState = {
 const appMessagesReducer = (state = initialState, { type, ...rest }) => {
   switch(type) {
     case appMessages.ADD:
-      const messages = rest.messages.map((message) =>
+      const { messages } = rest;
+      const nextMessages = messages.map((message) =>
         systemMessage({ level: rest.level, message })
       );
 
       return {
-        messages: [...state.messages, ...messages]
+        messages: [...state.messages, ...nextMessages]
       };
     case appMessages.CLEAR:
       const safeState = state.messages.slice();

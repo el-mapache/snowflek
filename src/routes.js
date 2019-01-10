@@ -9,6 +9,7 @@ import SystemMessages from './components/system-messages';
 import SignupPage from './pages/sign-up';
 import SigninPage from './pages/sign-in';
 import OwnDropletsPage from './pages/own-droplets';
+import FriendDropletsPage from './pages/friend-droplets';
 
 const Routes = () => (
   <AuthProvider>
@@ -23,6 +24,11 @@ const Routes = () => (
             path="/droplets"
             isAuthenticated={isAuthenticated}
             component={OwnDropletsPage}
+          />
+          <PrivateRoute
+            path="friends/:id/droplets"
+            isAuthenticated={isAuthenticated}
+            component={FriendDropletsPage}
           />
         </Switch>
       </App>

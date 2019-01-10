@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 
 const method = 'GET';
-const credentials = 'same-origin';
+const credentials = 'include';
 const headers = {
   accept: 'application/json',
   'content-type': 'application/json',
@@ -22,7 +22,7 @@ const parseError = ({ errorText, response }) => {
   try {
     formattedError = JSON.parse(errorText)
   } catch (error) {
-    formattedError = errorText;
+    formattedError = { errors: [ errorText ] };
   }
 
   const error = new Error(errorText);
@@ -68,6 +68,14 @@ const _fetch = ({ url, configs = {} }) => {
       const json = await parseJSON(response);
 
       return { json, response };
+    })
+    .catch((error) => {
+      // a 500 or similar error has occured
+      parseError({
+        errorText: error.message,
+        // mock a response object so the app can make use of it
+        response: { ok: false, status: 500 },
+      });
     });
 };
 

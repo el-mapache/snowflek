@@ -1,5 +1,11 @@
 import keyMirror from 'keymirror';
 
+const appMessages = keyMirror({
+  ADD: null,
+  CLEAR: null,
+  CLEAR_ALL: null,
+});
+
 const auth = keyMirror({
   SET_AUTH_HEADERS: null,
   SIGN_UP: null,
@@ -20,10 +26,16 @@ const droplet = keyMirror({
   ON_CREATE_ERROR: null,
 });
 
-const appMessages = keyMirror({
-  ADD: null,
-  CLEAR: null,
-  CLEAR_ALL: null,
+const friends = keyMirror({
+  FETCH_ALL: null,
+  ON_FETCH_ALL: null,
+  ADD_FRIEND: null,
+  REMOVE_FRIEND: null,
+  ON_ERROR: null,
+});
+
+const server = keyMirror({
+  NO_RESPONSE: null
 });
 
 export {
@@ -31,4 +43,6 @@ export {
   auth,
   cookie,
   droplet,
+  friends,
+  server,
 };

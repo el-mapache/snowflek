@@ -1,6 +1,7 @@
 import fetch from '../fetch';
 import env from '../env';
 import store from '../store';
+import { server } from '../actions';
 
 const apiPath = `${env.apiHost}/api/v1`;
 
@@ -39,7 +40,17 @@ const wrapped = (url, configs = {}) => {
   };
 
   return fetch({ url: `${apiPath}/${url}`, configs: fetchConfigs })
-    .then(normalizeAPIResponse);
+    .then(normalizeAPIResponse)
+    .catch((error) => {
+      // intercept
+      // TODO not sure that i love this side effect thing here
+      store.dispatch({
+        type: server.NO_RESPONSE
+      });
+
+      // pass error back to the calling action
+      throw error;
+    });
 }
 
 export default wrapped;
