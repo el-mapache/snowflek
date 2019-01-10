@@ -15,11 +15,21 @@ const Routes = () => (
   <AuthProvider>
     {(isAuthenticated) => (
       <App>
-      <Header isAuthenticated={isAuthenticated} />
-      <SystemMessages />
+        <Header isAuthenticated={isAuthenticated} />
+        <SystemMessages />
         <Switch>
-          <RedirectRoute path="/sign-in" component={SigninPage} shouldRedirect={isAuthenticated} redirectTo="/droplets" />
-          <RedirectRoute path="/sign-up" component={SignupPage} shouldRedirect={isAuthenticated} redirectTo="/droplets" />
+          <RedirectRoute
+            path="/sign-in"
+            component={SigninPage}
+            shouldRedirect={isAuthenticated}
+            redirectTo="/droplets"
+          />
+          <RedirectRoute
+            path="/sign-up"
+            component={SignupPage}
+            shouldRedirect={isAuthenticated}
+            redirectTo="/droplets"
+          />
           <PrivateRoute
             path="/droplets"
             isAuthenticated={isAuthenticated}
