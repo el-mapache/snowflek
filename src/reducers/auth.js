@@ -27,13 +27,13 @@ const authReducer = (state = initialState, { type, ...rest }) => {
       };
     case auth.ERROR:
       // we don't need the full messages yet, pull them out of the errors object
-      const { full_messages, ...fieldErrors} = rest.errors;
+      const { full_messages, ...errorsFromServer} = rest.errors;
 
       return {
         ...state,
         errors: {
           ...state.errors,
-          ...fieldErrors,
+          ...errorsFromServer,
         },
         isLoading: false,
       };

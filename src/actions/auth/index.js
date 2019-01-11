@@ -19,7 +19,8 @@ const signUpAction = dispatch => ({ email, password }) => {
       dispatch(signUp(response));
     }) 
     .catch((error) => {
-      dispatch(setErrors(error.json.errors));
+      const formErrors = error.json.errors;
+      dispatch(setErrors(formErrors));
     });
 };
 
@@ -32,9 +33,14 @@ const signInAction = dispatch => ({ email, password }) => {
       dispatch(signIn(response));
     })
     .catch((error) => {
-      dispatch(addAppMessage({
-        level: 'error',
-        messages: error.json.errors
+      // TODO this error has to be manually transformed, since
+      // devise doesnt send errors for general auth failure vs. bad form
+      // data in the same way. This probably indicates we need a separate
+      // action to handle form-level errors, since all these transforms are getting
+      // a bit confusing
+      console.log(error.json.errors)
+      dispatch(setErrors({
+        form: error.json.errors[0]
       }));
     });
 };
