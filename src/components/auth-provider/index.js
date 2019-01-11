@@ -1,11 +1,12 @@
 import React from 'react';
-import cookieSelector from '../../utils/cookie-selector';
 import { connect } from 'react-redux';
-import { setHeadersAction } from '../../actions/auth';
+import cookieSelector from '../../utils/cookie-selector';
+import { verifyToken } from '../../actions/auth';
+import Loader from '../loader';
 
 const mapStateToProps = ({ auth }) => auth;
 const mapDispatchToProps = dispatch => ({
-  setAuthHeaders: setHeadersAction(dispatch),
+  verifyToken: verifyToken(dispatch),
 });
 
 class Auth extends React.Component {
@@ -13,12 +14,20 @@ class Auth extends React.Component {
     const headers = cookieSelector.getAuthHeaders();
 
     if (headers) {
-      this.props.setAuthHeaders(headers);
+      this.props.verifyToken({
+        uid: headers.uid,
+        client: headers.client,
+        'access-token': headers['access-token'],
+      });
     }
   }
 
   render() {
-    return this.props.children(this.props.isAuthenticated);
+    return (
+      <Loader isLoading={this.props.isLoading}>
+        { this.props.children(this.props.isAuthenticated) }
+      </Loader>
+    );
   }
 }
 

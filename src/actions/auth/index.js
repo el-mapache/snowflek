@@ -1,9 +1,10 @@
 import {
-  setAuthHeaders,
   signUp,
   signIn,
   signOut,
-  setErrors
+  setErrors,
+  validateToken,
+  verifyingToken,
 } from './creators';
 import { addAppMessage } from '../app-messages/creators';
 import fetch from '../../utils/slowdrip-fetch';
@@ -47,7 +48,7 @@ const signOutAction = dispatch => () => {
       dispatch(signOut());
       dispatch(appMessages({
         level: 'success',
-        messages: 'You\'ve signed out successfully!',
+        messages: ['You\'ve signed out successfully!'],
       }))
     })
     .catch((error) => {
@@ -56,15 +57,26 @@ const signOutAction = dispatch => () => {
         messages: error.json.errors,
       }));
     });
-}
+};
 
-const setHeadersAction = dispatch => (headers) => {
-  dispatch(setAuthHeaders(headers));
+const verifyToken = dispatch => (params) => {
+  dispatch(verifyingToken());
+
+  fetch(`${NAMESPACE}/validate_token`, { params: { ...params } })
+    .then((response) => {
+      dispatch(validateToken(response));
+    })
+    .catch(() => {
+      dispatch(appMessages({
+        level: 'error',
+        messages: ['You must sign up or sign in to continue!'],
+      }));
+    })
 };
 
 export {
   signUpAction,
   signInAction,
   signOutAction,
-  setHeadersAction,
+  verifyToken,
 };
