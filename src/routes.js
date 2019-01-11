@@ -13,7 +13,7 @@ import FriendDropletsPage from './pages/friend-droplets';
 
 const Routes = () => (
   <AuthProvider>
-    {(isAuthenticated) => (
+    {(isAuthenticated, isLoading) => (
       <App>
         <Header isAuthenticated={isAuthenticated} />
         <SystemMessages />
@@ -21,6 +21,7 @@ const Routes = () => (
           <RedirectRoute
             path="/sign-in"
             component={SigninPage}
+            isLoading={isLoading}
             shouldRedirect={isAuthenticated}
             redirectTo="/droplets"
           />
@@ -32,6 +33,7 @@ const Routes = () => (
           />
           <PrivateRoute
             path="/droplets"
+            isLoading={isLoading}
             isAuthenticated={isAuthenticated}
             component={OwnDropletsPage}
           />
