@@ -38,7 +38,6 @@ const signInAction = dispatch => ({ email, password }) => {
       // data in the same way. This probably indicates we need a separate
       // action to handle form-level errors, since all these transforms are getting
       // a bit confusing
-      console.log(error.json.errors)
       dispatch(setErrors({
         form: error.json.errors[0]
       }));
