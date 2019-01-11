@@ -1,10 +1,11 @@
 import { auth } from '../actions';
 const initialState = {
-  isAuthenticated: false,
-  // TODO: this should be a separate thing I think
-  user: null,
   authHeaders: null,
   errors: {},
+  isAuthenticated: false,
+  isLoading: false,
+  // TODO: this should be a separate thing I think
+  user: null,
 };
 
 const authReducer = (state = initialState, { type, ...rest }) => {
@@ -14,9 +15,15 @@ const authReducer = (state = initialState, { type, ...rest }) => {
     case auth.VERIFY_TOKEN:
       return {
         errors: {},
-        user: rest.data,
+        user: rest.user,
         authHeaders: { ...rest.authHeaders },
         isAuthenticated: true,
+        isLoading: false,
+      };
+    case auth.VERIFYING:
+      return {
+        ...state,
+        isLoading: true,
       };
     case auth.ERROR:
       // we don't need the full messages yet, pull them out of the errors object
@@ -27,13 +34,8 @@ const authReducer = (state = initialState, { type, ...rest }) => {
         errors: {
           ...state.errors,
           ...fieldErrors,
-        }
-      };
-    case auth.SET_AUTH_HEADERS:
-      return {
-        ...initialState,
-        authHeaders: { ...rest.authHeaders },
-        isAuthenticated: true,
+        },
+        isLoading: false,
       };
     case auth.SIGN_OUT:
       return initialState;

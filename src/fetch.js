@@ -1,7 +1,7 @@
 import 'whatwg-fetch';
 
 const method = 'GET';
-const credentials = 'include';
+const credentials = 'same-origin';
 const headers = {
   accept: 'application/json',
   'content-type': 'application/json',

@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
-// import { Link } from 'react-router-dom';
 import { setCookie } from './actions/cookie';
 import './app.css';
 
