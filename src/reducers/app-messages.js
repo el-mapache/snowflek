@@ -15,18 +15,21 @@ const appMessagesReducer = (state = initialState, { type, ...rest }) => {
     case appMessages.ADD:
       const { messages } = rest;
       const nextMessages = messages.map((message) =>
-        systemMessage({ level: rest.level, message })
+        systemMessage({
+          level: rest.level,
+          message
+        })
       );
 
       return {
         messages: [...state.messages, ...nextMessages]
       };
     case appMessages.CLEAR:
-      const safeState = state.messages.slice();
-      safeState.splice(rest.index, 1);
+      const messagesCopy = state.messages.slice();
+      messagesCopy.splice(rest.index, 1);
 
       return {
-        messages: [ ...safeState ],
+        messages: [...messagesCopy],
       };
     case appMessages.CLEAR_ALL:
     default:

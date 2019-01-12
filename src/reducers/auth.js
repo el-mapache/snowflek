@@ -1,4 +1,4 @@
-import { auth } from '../actions';
+import { auth, server } from '../actions';
 const initialState = {
   authHeaders: null,
   errors: {},
@@ -39,6 +39,11 @@ const authReducer = (state = initialState, { type, ...rest }) => {
       };
     case auth.SIGN_OUT:
       return initialState;
+    case server.NO_RESPONSE:
+      return {
+        ...state,
+        isLoading: false,
+      }
     default:
       return state;
   }

@@ -21,17 +21,46 @@ const unpackAuthHeaders = (headers) => ({
   expiry: headers.get('expiry'),
 });
 
+const parseError = ({ error, response }) => {
+  let formattedError;
+
+  if (typeof error === 'string') {
+    formattedError = { errors: [ error ] };
+  } else {
+    formattedError = error; 
+  }
+
+  const e = new Error(error);
+  e.response = response;
+  e.json = formattedError;
+
+  return e;
+};
+
 // Helper function that add auth headers to each payload of
 // received data. Necessary as we need to handle client tokens
 // on the front end
 const normalizeAPIResponse = ({ json, response }) => {
+  if (!response.ok) {
+    const error = parseError({
+      error: json,
+      response
+    });
+    
+    // the response is not ok, but the error is most likely a 400-level,
+    // and not a networking or critical server error
+    return Promise.reject(error) 
+  }
+
   const { headers } = response;  
-  
-  return {
+
+  return Promise.resolve({
     ...json,
     authHeaders: unpackAuthHeaders(headers),
-  };
-}
+  });
+};
+
+const isNetworkError = status => status === 500;
 
 const wrapped = (url, configs = {}) => {
   const fetchConfigs = {
@@ -39,18 +68,35 @@ const wrapped = (url, configs = {}) => {
     headers: { ...getAuthHeaders() },
   };
 
-  return fetch({ url: `${apiPath}/${url}`, configs: fetchConfigs })
-    .then(normalizeAPIResponse)
-    .catch((error) => {
-      // intercept
+  return new Promise((resolve, reject) => {
+    fetch({
+      url: `${apiPath}/${url}`,
+      configs: fetchConfigs
+    })
+    .then((response) =>
+      normalizeAPIResponse(response)
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((data) => {
+          reject(data)
+        })
+    )
+    .catch(({ error, response }) => {
+      const appError = parseError({ error, response });
+      
+      // intercept, should only occur when the fetch requests actually fails,
+      // i.e. when the server is down
       // TODO not sure that i love this side effect thing here
-      store.dispatch({
-        type: server.NO_RESPONSE
-      });
-
-      // pass error back to the calling action
-      throw error;
+      if (isNetworkError(response.status)) {
+        store.dispatch({
+          type: server.NO_RESPONSE
+        });
+      }
+      
+      reject(appError)
     });
+  });
 }
 
 export default wrapped;

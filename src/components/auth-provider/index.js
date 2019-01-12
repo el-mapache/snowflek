@@ -33,4 +33,5 @@ class Auth extends React.Component {
 
 const AuthProvider = connect(mapStateToProps, mapDispatchToProps)(Auth);
 
+export { Auth };
 export default AuthProvider;
