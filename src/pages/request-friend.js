@@ -1,8 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { requestFriend } from '../actions/friends';
+
+const mapStateToProps = state => state;
+const mapDispatchToProps = dispatch => ({
+  requestFriend: requestFriend(dispatch),
+});
 
 class RequestFriendPage extends React.Component {
   handleClick = () => {
-
+    this.props.requestFriend({
+      friend_request: {
+        email: 'april@gmail.com',
+      },
+    });
   }
  
   render() {
@@ -17,4 +28,5 @@ class RequestFriendPage extends React.Component {
   }
 }
 
-export default RequestFriendPage;
+export { RequestFriendPage };
+export default connect(mapStateToProps, mapDispatchToProps)(RequestFriendPage);

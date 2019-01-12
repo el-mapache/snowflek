@@ -30,6 +30,7 @@ const droplet = keyMirror({
 const friends = keyMirror({
   FETCH_ALL: null,
   ON_FETCH_ALL: null,
+  REQUEST_FRIEND: null,
   ADD_FRIEND: null,
   REMOVE_FRIEND: null,
   ON_ERROR: null,
@@ -39,6 +40,12 @@ const server = keyMirror({
   NO_RESPONSE: null
 });
 
+const users = keyMirror({
+  FIND: null,
+  FETCHING: null,
+  ERROR: null,
+});
+
 export {
   appMessages,
   auth,
@@ -46,4 +53,5 @@ export {
   droplet,
   friends,
   server,
+  users,
 };

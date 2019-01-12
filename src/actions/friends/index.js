@@ -1,13 +1,24 @@
 import fetch from '../../utils/slowdrip-fetch';
-import { fetchAllFriends, onFetchAllFriends } from './creators';
-
-//const NAMESPACE = ``
+import { fetchAllFriends, friendRequest } from './creators';
 
 const getFriends = (dispatch) => () => {
   dispatch(fetchAllFriends());
-  fetch
+};
+
+const requestFriend = dispatch => (data) => {
+  fetch('friend_requests', {
+    method: 'POST',
+    data,
+  })
+  .then((response) => {
+    console.log('requested!', response)
+  })
+  .catch((response) => {
+    console.log('request failed', response)
+  });
 };
 
 export {
   getFriends,
+  requestFriend,
 };

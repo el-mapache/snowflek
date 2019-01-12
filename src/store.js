@@ -6,6 +6,7 @@ import appMessagesReducer from './reducers/app-messages';
 import authReducer from './reducers/auth';
 import cookieReducer from './reducers/cookie';
 import dropletReducer from './reducers/droplet';
+import usersReducer from './reducers/users';
 
 const middlewares = applyMiddleware(updateSession, logger);
 const appState = combineReducers({
@@ -14,6 +15,7 @@ const appState = combineReducers({
   auth: authReducer,
   cookie: cookieReducer,
   droplets: dropletReducer,
+  users: usersReducer,
 });
 
 const store = createStore(appState, middlewares);
