@@ -34,7 +34,7 @@ class CreateDroplet extends React.Component {
   }
 
   componentDidUpdate() {
-    const serverErrorsList = Object.entried(this.props.errors);
+    const serverErrorsList = Object.entries(this.props.errors);
     // TODO: this can all be encapsulated in a component
     // will want the form to take prefixes as well, in case nested errors are needed
     const formattedErrors = serverErrorsList.reduce((memo, [name, message]) => {

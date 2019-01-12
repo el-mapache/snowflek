@@ -10,15 +10,17 @@ import SignupPage from './pages/sign-up';
 import SigninPage from './pages/sign-in';
 import OwnDropletsPage from './pages/own-droplets';
 import FriendDropletsPage from './pages/friend-droplets';
+import RequestFriendPage from './pages/request-friend';
 
 const Routes = () => (
   <AuthProvider>
-    {(isAuthenticated) => (
+    {(isAuthenticated, isOptimistic) => (
       <App>
         <Header isAuthenticated={isAuthenticated} />
         <SystemMessages />
         <Switch>
           <RedirectRoute
+            exact
             path="/sign-in"
             component={SigninPage}
             shouldRedirect={isAuthenticated}
@@ -32,6 +34,7 @@ const Routes = () => (
           />
           <PrivateRoute
             path="/droplets"
+            isOptimistic={isOptimistic}
             isAuthenticated={isAuthenticated}
             component={OwnDropletsPage}
           />
@@ -39,6 +42,12 @@ const Routes = () => (
             path="friends/:id/droplets"
             isAuthenticated={isAuthenticated}
             component={FriendDropletsPage}
+          />
+          <PrivateRoute
+            route="/friends/request"
+            isOptimistic={isOptimistic}
+            isAuthenticated={isAuthenticated}
+            component={RequestFriendPage}
           />
         </Switch>
       </App>

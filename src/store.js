@@ -6,7 +6,6 @@ import appMessagesReducer from './reducers/app-messages';
 import authReducer from './reducers/auth';
 import cookieReducer from './reducers/cookie';
 import dropletReducer from './reducers/droplet';
-import {createBrowserHistory } from 'history';
 
 const middlewares = applyMiddleware(updateSession, logger);
 const appState = combineReducers({
