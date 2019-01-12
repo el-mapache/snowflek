@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => ({
 class App extends Component {
   componentDidMount() {
     const csrfToken = this.props.allCookies.csrftoken;
-    
+
     this.props.setCookie(csrfToken);
   }
  
