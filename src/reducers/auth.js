@@ -25,6 +25,11 @@ const authReducer = (state = initialState, { type, ...rest }) => {
         ...state,
         isLoading: true,
       };
+    case auth.VERIFY_TOKEN_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+      };
     case auth.ERROR:
       // we don't need the full messages yet, pull them out of the errors object
       const { full_messages, ...errorsFromServer} = rest.errors;

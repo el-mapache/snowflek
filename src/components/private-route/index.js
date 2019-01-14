@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import Loading from '../loader';
 
 const PrivateRoute = ({ component: Component, isOptimistic, isAuthenticated, ...rest }) => {
   return (
@@ -8,7 +9,9 @@ const PrivateRoute = ({ component: Component, isOptimistic, isAuthenticated, ...
       render={(props) => {
         return (
           isOptimistic || isAuthenticated ?
-          <Component {...props} /> :
+          <Loading isLoading={!isAuthenticated}>
+            <Component {...props} />
+          </Loading> :
           <Redirect to={{
             pathname: '/sign-in',
             state: { from: props.location }

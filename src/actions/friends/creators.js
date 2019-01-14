@@ -13,8 +13,19 @@ const friendRequest = () => ({
   type: friends.REQUEST_FRIEND,
 });
 
+const getFriendRequests = () => ({
+  type: friends.FETCH_FRIEND_REQUESTS,
+});
+
+const onGetFriendRequests = (friendRequests) => ({
+  type: friends.ON_FETCH_FETCH_REQESTS,
+  friendRequests,
+});
+
 export {
   fetchAllFriends,
   onFetchAllFriends,
   friendRequest,
+  getFriendRequests,
+  onGetFriendRequests,
 };

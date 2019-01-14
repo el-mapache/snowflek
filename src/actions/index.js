@@ -13,6 +13,7 @@ const auth = keyMirror({
   SIGN_OUT: null,
   VERIFYING: null,
   VERIFY_TOKEN: null,
+  VERIFY_TOKEN_FAIL: null,
   ERROR: null,
 });
 
@@ -31,6 +32,8 @@ const friends = keyMirror({
   FETCH_ALL: null,
   ON_FETCH_ALL: null,
   REQUEST_FRIEND: null,
+  FETCH_FRIEND_REQUESTS: null,
+  ON_FETCH_FETCH_REQESTS: null,
   ADD_FRIEND: null,
   REMOVE_FRIEND: null,
   ON_ERROR: null,

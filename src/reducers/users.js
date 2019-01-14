@@ -2,6 +2,7 @@ import { users } from '../actions';
 
 const initialState = {
   users: {},
+  current: null,
   isLoading: false,
   errors: {},
 };
@@ -14,17 +15,22 @@ const usersReducer = (state = initialState, { type, ...rest }) => {
         isLoading: true,
       };
     case users.FIND:
+      const [ current ] = rest.users;
       return {
-        ...state.errors,
+        current: current.email,
+        errors: {},
         isLoading: false,
         users: {
           ...state.users,
-          [rest.user.id]: rest.user
+          [current.email]: current,
         },
       };
-    case users.ERRORS:
-      debugger
-      return state;
+    case users.ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        errors: { ...rest.errors }
+      };
     default:
       return state;
   }

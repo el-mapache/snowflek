@@ -5,6 +5,7 @@ import {
   setErrors,
   validateToken,
   verifyingToken,
+  verifyTokenFail,
 } from './creators';
 import { addAppMessage } from '../app-messages/creators';
 import fetch from '../../utils/slowdrip-fetch';
@@ -71,6 +72,7 @@ const verifyToken = dispatch => (params) => {
       dispatch(validateToken(response));
     })
     .catch(() => {
+      dispatch(verifyTokenFail());
       dispatch(addAppMessage({
         level: 'error',
         messages: ['You must sign up or sign in to continue!'],

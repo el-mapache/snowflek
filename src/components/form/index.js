@@ -33,10 +33,16 @@ class Form extends React.Component {
     onFormSubmit() { return; }
   }
 
+  form = null
+
   componentDidUpdate() {
     const errorsFromServer = Object.entries(this.props.errors);
-    // TODO: this can all be encapsulated in a component
-    // will want the form to take prefixes as well, in case nested errors are needed
+
+    if (!errorsFromServer.length) {
+      return;
+    }
+
+    // TODO: will want the form to take prefixes as well, in case nested errors are needed
     const formattedErrors = errorsFromServer.reduce((memo, [name, message]) => {
       return { 
         ...memo,

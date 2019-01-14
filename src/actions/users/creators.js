@@ -1,8 +1,8 @@
 import { users } from '../index';
 
-const fetchUser = (user) => ({
+const foundUser = (foundUsers) => ({
   type: users.FIND,
-  user
+  users: foundUsers,
 });
 
 const fetchingUser = () => ({
@@ -15,7 +15,7 @@ const userFetchError = (errors) => ({
 });
 
 export {
-  fetchUser,
+  foundUser,
   fetchingUser,
   userFetchError,
 };

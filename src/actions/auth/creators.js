@@ -19,7 +19,8 @@ const setErrors = (errors) => ({
   errors
 });
 
-const verifyingToken = () => ({ type: auth.VERIFYING })
+const verifyingToken = () => ({ type: auth.VERIFYING });
+const verifyTokenFail = () => ({ type: auth.VERIFY_TOKEN_FAIL });
 
 export {
   signUp,
@@ -28,4 +29,5 @@ export {
   setErrors,
   verifyingToken,
   validateToken,
+  verifyTokenFail,
 };
