@@ -28,6 +28,7 @@ const authReducer = (state = initialState, { type, ...rest }) => {
     case auth.VERIFY_TOKEN_FAIL:
       return {
         ...state,
+        authHeaders: null,
         isLoading: false,
       };
     case auth.ERROR:

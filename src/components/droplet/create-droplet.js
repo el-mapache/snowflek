@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Formik } from 'formik';
+import Form from '..//form';
 import Fieldset from '../fieldset';
 import { createDroplet } from '../../actions/droplets';
 import DropletValidator from '../../validators/droplet';
-
-const getForm = component => el => component.form = el;
 
 const mapStateToProps = ({ droplets }) => {
   return { errors: droplets.errors };
@@ -32,25 +30,6 @@ class CreateDroplet extends React.Component {
   state = {
     content: ''
   }
-
-  componentDidUpdate() {
-    const serverErrorsList = Object.entries(this.props.errors);
-    // TODO: this can all be encapsulated in a component
-    // will want the form to take prefixes as well, in case nested errors are needed
-    const formattedErrors = serverErrorsList.reduce((memo, [name, message]) => {
-      return {
-        ...memo,
-        [name]: `${message}`,
-      };
-    }, {});
-
-    if (!Object.keys(formattedErrors).length) {
-      this.form.resetForm();
-    }
-
-    this.form.setSubmitting(false);
-    this.form.setErrors(formattedErrors);
-  }
  
   handleSubmit = (values) => {
     this.props.handleSubmit(values);
@@ -58,32 +37,22 @@ class CreateDroplet extends React.Component {
 
   render() {
     return (
-      <Formik
-        initialValues={this.state}
-        onSubmit={this.handleSubmit}
-        ref={getForm(this)}
-        validate={handleValidation}
-      >
-        {({ handleSubmit, isSubmitting }) => {
-          return (
-            <form onSubmit={handleSubmit}>
-              <h3>Hey friend, why not write something today?</h3>
-              <Fieldset
-                label="What's on your mind today?"
-                name="content"
-                type="textarea"
-                rows="6"
-                cols="60"
-              />
-              <div>
-                <button type="submit" disabled={isSubmitting}>
-                  create droplet
-                </button>
-              </div>
-            </form>
-          );
-        }}
-      </Formik>
+      <section id="create-droplet">
+        <h3>Hey friend, why not write something today?</h3>
+        <Form
+          initialValues={this.state}
+          onSubmit={this.handleSubmit}
+          validate={handleValidation}
+        >
+          <Fieldset
+            label="What's on your mind today?"
+            name="content"
+            type="textarea"
+            rows="6"
+            cols="60"
+          />
+        </Form>
+      </section>
     );
   }
 }

@@ -39,6 +39,12 @@ const friends = keyMirror({
   ON_ERROR: null,
 });
 
+const friendships = keyMirror({
+  ON_CREATE_FRIENDSHIP: null,
+  ON_CREATE_FRIENDSHIP_START: null,
+  ON_CREATE_FRIENDSHIP_ERROR: null,
+});
+
 const server = keyMirror({
   NO_RESPONSE: null
 });
@@ -55,6 +61,7 @@ export {
   cookie,
   droplet,
   friends,
+  friendships,
   server,
   users,
 };

@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { findUser } from '../actions/users';
-import { requestFriend, friendRequests } from '../actions/friends';
+import {
+  requestFriend,
+  friendRequests,
+} from '../actions/friends';
 import Form from '../components/form';
 import FieldSet from '../components/fieldset';
 import Button from '../components/button';
 import Message from '../components/message';
+import IncomingFriendRequests from '../components/incoming-friend-requests';
 
 const mapStateToProps = ({ users, friendRequests }) => ({
   users,
@@ -92,53 +96,6 @@ class OutgoingFriendRequests extends React.Component {
   }
 }
 
-class IncomingFriendRequests extends React.Component {
-  static propTypes = {
-    incomingRequests: PropTypes.array,
-  }
-
-  renderTitle() {
-    if (this.props.incomingRequests.length) {
-      return <h4>People want to be your friend!</h4>;
-    }
-
-    return <h4>No one is waiting for you to confirm them as a friend.</h4>
-  }
-
-  renderRequests() {
-    const { incomingRequests } = this.props;
-    
-    if (!incomingRequests.length) {
-      return null;
-    }
-
-    return incomingRequests.map((request, index) => {
-      const { requesting_friend: friend } = request;
-
-      if (!friend) {
-        return null;
-      }
-
-      return (
-        <div key={`${friend.email}-${index}`}>
-          <span>{friend.name}</span>
-          <span>{friend.email}</span>
-          <Button>Confirm your friendship</Button>
-        </div>
-      );
-    });
-  }
-
-  render() {
-    return (
-      <section id="incoming-requests">
-        { this.renderTitle() }
-        { this.renderRequests() }
-      </section>
-    );
-  }
-}
-
 class YourFriendRequests extends React.Component {
   render() {
     return (
@@ -149,6 +106,12 @@ class YourFriendRequests extends React.Component {
     );
   }
 }
+
+const handleValidation = (values) => {
+  let errors = {};
+
+  return errors;
+};
 
 class RequestFriendPage extends React.Component {
   state = {
@@ -189,10 +152,11 @@ class RequestFriendPage extends React.Component {
       <section id="friend-finder">
         <h2>Request a pal</h2>
         <Form
-          initialValues={formState}
           button="Find friend"
           errors={users.errors}
+          initialValues={formState}
           onSubmit={this.handleSubmit}
+          validate={handleValidation}
         >
           <Message message={friendRequests.error.form} />
           <FieldSet

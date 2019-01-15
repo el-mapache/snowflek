@@ -7,6 +7,7 @@ import authReducer from './reducers/auth';
 import cookieReducer from './reducers/cookie';
 import dropletReducer from './reducers/droplet';
 import friendRequestReducer from './reducers/friend-requests';
+import friendshipReducer from './reducers/friendships';
 import usersReducer from './reducers/users';
 
 const middlewares = applyMiddleware(updateSession, logger);
@@ -17,6 +18,7 @@ const appState = combineReducers({
   cookie: cookieReducer,
   droplets: dropletReducer,
   friendRequests: friendRequestReducer,
+  friendships: friendshipReducer,
   users: usersReducer,
 });
 
