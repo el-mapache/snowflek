@@ -6,18 +6,42 @@ import { requestFriend, friendRequests } from '../actions/friends';
 import Form from '../components/form';
 import FieldSet from '../components/fieldset';
 import Button from '../components/button';
+import Message from '../components/message';
 
-const mapStateToProps = ({ users, friendRequests }) => ({ users, friendRequests });
+const mapStateToProps = ({ users, friendRequests }) => ({
+  users,
+  friendRequests,
+});
 const mapDispatchToProps = dispatch => ({
   fetchUser: findUser(dispatch),
   requestFriend: requestFriend(dispatch),
   getFriendRequests: friendRequests(dispatch),
 });
 
-class FriendshipRequest extends React.Component {
+class MakeFriendshipRequest extends React.Component {
+  static propTypes = {
+    friend: PropTypes.oneOfType([
+      () => null,
+      PropTypes.shape({
+        name: PropTypes.string,
+        email: PropTypes.email,
+      }),
+    ]),
+    handleFriendRequest: PropTypes.func.isRequired,
+  }
+
   render() {
+    if (!this.props.friend) {
+      return null;
+    }
+
     return (
-      null
+      <div>
+        <p>Looks like {this.props.friend.email} is available for friendship!</p>
+        <Button onClick={this.props.handleFriendRequest}>
+          Request a friendship
+        </Button>
+      </div>
     );
   }
 }
@@ -88,11 +112,17 @@ class IncomingFriendRequests extends React.Component {
       return null;
     }
 
-    return incomingRequests.map((request) => {
+    return incomingRequests.map((request, index) => {
+      const { requesting_friend: friend } = request;
+
+      if (!friend) {
+        return null;
+      }
+
       return (
-        <div>
-          <span>{request.name}</span>
-          <span>{request.email}</span>
+        <div key={`${friend.email}-${index}`}>
+          <span>{friend.name}</span>
+          <span>{friend.email}</span>
           <Button>Confirm your friendship</Button>
         </div>
       );
@@ -109,7 +139,7 @@ class IncomingFriendRequests extends React.Component {
   }
 }
 
-class FriendRequests extends React.Component {
+class YourFriendRequests extends React.Component {
   render() {
     return (
       <section id="friend-requests">
@@ -122,51 +152,63 @@ class FriendRequests extends React.Component {
 
 class RequestFriendPage extends React.Component {
   state = {
-    email: ''
+    email: '',
+    currentFriend: null,
   }
 
   componentDidMount() {
     this.props.getFriendRequests();
   }
 
-  handleClick = (values) => {
+  handleClick = () => {
+    const { users } = this.props;
+    const friend = users.users[this.state.currentFriend];
 
+    this.props.requestFriend({
+      email: friend.email,
+      id: friend.id,
+    });
   }
 
   handleSubmit = (values) => {
-    this.props.fetchUser({
-      email: values.email,
+    this.setState(state => ({
+      ...state,
+      currentFriend: values.email
+    }), () => {
+      this.props.fetchUser({
+        email: values.email,
+      });
     });
   }
  
   render() {
-    const { users } = this.props;
+    const { users, friendRequests } = this.props;
+    const formState = { email: this.state.email };
 
     return (
       <section id="friend-finder">
         <h2>Request a pal</h2>
         <Form
-          initialValues={this.state}
+          initialValues={formState}
           button="Find friend"
           errors={users.errors}
           onSubmit={this.handleSubmit}
         >
+          <Message message={friendRequests.error.form} />
           <FieldSet
             label="Enter your friend's email address"
             name="email"
             type="email"
           />
         </Form>
-        <FriendRequests
+        <MakeFriendshipRequest
+          friend={users.users[this.state.currentFriend]}
+          handleFriendRequest={this.handleClick}
+        />
+        <YourFriendRequests
           outgoingRequests={this.props.friendRequests.outgoingRequests}
           incomingRequests={this.props.friendRequests.incomingRequests}
         />
-        <Button
-          onClick={this.handleClick}
-          disabled={!users.current}
-        >
-          request friend
-        </Button>
       </section>
     );
   }

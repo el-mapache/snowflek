@@ -1,10 +1,9 @@
 import { users } from '../actions';
 
 const initialState = {
-  users: {},
-  current: null,
-  isLoading: false,
   errors: {},
+  isLoading: false,
+  users: {},
 };
 
 const usersReducer = (state = initialState, { type, ...rest }) => {
@@ -17,7 +16,6 @@ const usersReducer = (state = initialState, { type, ...rest }) => {
     case users.FIND:
       const [ current ] = rest.users;
       return {
-        current: current.email,
         errors: {},
         isLoading: false,
         users: {

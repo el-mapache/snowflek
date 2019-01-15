@@ -22,10 +22,16 @@ const onGetFriendRequests = (friendRequests) => ({
   friendRequests,
 });
 
+const onFriendRequestError = (error) => ({
+  type: friends.ON_ERROR,
+  error,
+});
+
 export {
   fetchAllFriends,
   onFetchAllFriends,
   friendRequest,
   getFriendRequests,
   onGetFriendRequests,
+  onFriendRequestError,
 };

@@ -25,22 +25,14 @@ const friendlyFormError = (formFields, maybeFieldName, message) => {
 
 class Form extends React.Component {
   static propTypes = {
-    errors: PropTypes.object,
-    onFormSubmit: PropTypes.func
-  }
-
-  static defaultProps = {
-    onFormSubmit() { return; }
+    errors: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
+    onSubmit: PropTypes.func
   }
 
   form = null
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     const errorsFromServer = Object.entries(this.props.errors);
-
-    if (!errorsFromServer.length) {
-      return;
-    }
 
     // TODO: will want the form to take prefixes as well, in case nested errors are needed
     const formattedErrors = errorsFromServer.reduce((memo, [name, message]) => {
@@ -50,7 +42,7 @@ class Form extends React.Component {
       };
     }, {});
 
-    if (!Object.keys(formattedErrors).length) {
+    if (!Object.keys(formattedErrors).length && this.form.getFormikBag().dirty) {
       this.form.resetForm();
     }
 
@@ -59,7 +51,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { onFormSubmit, button, ...rest } = this.props;
+    const { button, ...rest } = this.props;
 
     return (
       <Formik

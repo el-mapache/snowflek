@@ -3,7 +3,11 @@ import {
   fetchAllFriends,
   getFriendRequests,
   onGetFriendRequests,
+  onFriendRequestError,
 } from './creators';
+import { userFetchError } from '../users/creators';
+
+const resource = 'friend_requests';
 
 const getFriends = (dispatch) => () => {
   dispatch(fetchAllFriends());
@@ -12,7 +16,7 @@ const getFriends = (dispatch) => () => {
 const friendRequests = dispatch => () => {
   dispatch(getFriendRequests());
 
-  fetch('friend_requests')
+  fetch(`${resource}`)
     .then(({ outgoing_requests, incoming_requests }) => {
       dispatch(onGetFriendRequests({
         outgoingRequests: outgoing_requests,
@@ -20,20 +24,32 @@ const friendRequests = dispatch => () => {
       }));
     })
     .catch((error) => {
+      // TODO: handle this, somehow
       console.log('error?', error);
     });
 };
 
-const requestFriend = dispatch => (data) => {
-  fetch('friend_requests', {
+const requestFriend = dispatch => ({ email, id }) => {
+  fetch(`${resource}`, {
     method: 'POST',
-    data,
+    data: {
+      friend_request: {
+        email, id
+      }
+    },
   })
   .then((response) => {
     console.log('requested!', response)
   })
-  .catch((response) => {
-    console.log('request failed', response)
+  .catch((error) => {
+    const { json } = error;
+    const errorObject = Object.entries(json);
+    // TODO why is every error formatted so goofily?
+    const formattedError = `${errorObject[0][0]} ${errorObject[0][1]}`;
+
+    dispatch(onFriendRequestError({
+      form: formattedError,
+    }));
   });
 };
 

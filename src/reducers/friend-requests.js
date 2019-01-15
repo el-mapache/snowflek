@@ -1,7 +1,7 @@
 import { friends } from "../actions";
 
 const initialState = {
-  errors: {},
+  error: {},
   isLoading: false,
   incomingRequests: [],
   outgoingRequests: [],
@@ -18,7 +18,7 @@ const friendRequestReducer = (state = initialState, { type, ...rest }) => {
       const { friendRequests } = rest;
 
       return {
-        errors: {},
+        error: {},
         isLoading: false,
         incomingRequests: [
           ...state.incomingRequests,
@@ -28,6 +28,11 @@ const friendRequestReducer = (state = initialState, { type, ...rest }) => {
           ...state.outgoingRequests,
           ...friendRequests.outgoingRequests,
         ],
+      }
+    case friends.ON_ERROR:
+      return {
+        ...state,
+        error: rest.error
       }
     default:
       return state;
