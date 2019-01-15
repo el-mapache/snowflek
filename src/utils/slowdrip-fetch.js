@@ -7,6 +7,7 @@ const apiPath = `${env.apiHost}/api/v1`;
 
 const getAuthHeaders = () => {
   const appState = store.getState();
+
   return {
     'x-csrf-token': appState.cookie.cookie,
     'token-type': 'Bearer',

@@ -5,7 +5,6 @@ import {
   onGetFriendRequests,
   onFriendRequestError,
 } from './creators';
-import { userFetchError } from '../users/creators';
 
 const resource = 'friend_requests';
 

@@ -1,8 +1,10 @@
+import fetch from '../../utils/slowdrip-fetch';
 import { 
   onCreateFriendshipStart,
   onCreateFriendship,
   onCreateFriendshipError,
 } from './creators';
+import { friendRequests } from '../friends';
 
 const confirmFriendship = dispatch => ({ id, email }) => {
   dispatch(onCreateFriendshipStart());
@@ -17,6 +19,7 @@ const confirmFriendship = dispatch => ({ id, email }) => {
   })
   .then(({ friend }) => {
     dispatch(onCreateFriendship(friend));
+    friendRequests(dispatch)();
   })
   .catch((error) => {
     dispatch(onCreateFriendshipError(error));

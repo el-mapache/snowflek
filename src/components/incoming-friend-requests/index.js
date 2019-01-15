@@ -15,16 +15,20 @@ const mapDispatchToProps = dispatch => ({
 
 class IncomingFriendRequest extends React.Component {
   static propTypes = {
-    name: PropTypes.string,
-    email: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    friend: PropTypes.shape({
+      name: PropTypes.string,
+      email: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }),
     handleConfirmFriendship: PropTypes.func.isRequired,
   }
   
   handleClick = () => {
+    const { friend } = this.props;
+
     this.props.handleConfirmFriendship({
-      email: this.props.email,
-      id: this.props.id,
+      email: friend.email,
+      id: friend.id,
     });
   }
 
@@ -85,7 +89,6 @@ class IncomingFriendRequests extends React.Component {
   }
 
   render() {
-    debugger
     const { friend } = this.props.friendships;
 
     return (

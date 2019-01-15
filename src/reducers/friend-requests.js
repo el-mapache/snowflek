@@ -20,14 +20,8 @@ const friendRequestReducer = (state = initialState, { type, ...rest }) => {
       return {
         error: {},
         isLoading: false,
-        incomingRequests: [
-          ...state.incomingRequests,
-          ...friendRequests.incomingRequests,
-        ],
-        outgoingRequests: [
-          ...state.outgoingRequests,
-          ...friendRequests.outgoingRequests,
-        ],
+        incomingRequests: friendRequests.incomingRequests,
+        outgoingRequests: friendRequests.outgoingRequests,
       }
     case friends.ON_ERROR:
       return {
