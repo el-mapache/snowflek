@@ -11,6 +11,7 @@ const usersReducer = (state = initialState, { type, ...rest }) => {
     case users.FETCHING:
       return {
         ...state,
+        errors: {},
         isLoading: true,
       };
     case users.FIND:
