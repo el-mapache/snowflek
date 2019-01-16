@@ -34,9 +34,9 @@ class MakeFriendshipRequest extends React.Component {
     handleFriendRequest: PropTypes.func.isRequired,
   }
 
-  render() {
-    if (!this.props.friend) {
-      return null;
+  renderActionOrError() {
+    if (this.props.error) {
+      return <Message message={this.props.error} />
     }
 
     return (
@@ -47,6 +47,13 @@ class MakeFriendshipRequest extends React.Component {
         </Button>
       </div>
     );
+  }
+  render() {
+    if (!this.props.friend) {
+      return null;
+    }
+
+    return this.renderActionOrError();
   }
 }
 
@@ -131,8 +138,24 @@ class RequestFriendPage extends React.Component {
     const { users } = this.props;
     const friend = users.users[this.state.currentFriend];
 
-    this.props.requestFriend({
-      id: friend.id,
+    // TODO this is not the best UI
+    /**
+     * essentially, we want a way to clear the current friend being sought
+     * once a successful friend request is made. since the state is spread out
+     * across the reducers and this component (not necessarily a problem)
+     * we have to do this suboptimal clearing of the email before the request
+     * is actually completed
+     * 
+     * MUST REWORK HOW FRIENDS/FRIENDSHIPS/USERS are abstracted! API clarity
+     * will help
+     */
+    this.setState(state => ({
+      ...state,
+      currentFriend: null
+    }), () => {
+      this.props.requestFriend({
+        id: friend.id,
+      });
     });
   }
 
@@ -161,7 +184,6 @@ class RequestFriendPage extends React.Component {
           onSubmit={this.handleSubmit}
           validate={handleValidation}
         >
-          <Message message={friendRequests.error.form} />
           <FieldSet
             label="Enter your friend's email address"
             name="email"
@@ -169,6 +191,7 @@ class RequestFriendPage extends React.Component {
           />
         </Form>
         <MakeFriendshipRequest
+          error={friendRequests.error.form}
           friend={users.users[this.state.currentFriend]}
           handleFriendRequest={this.handleClick}
         />

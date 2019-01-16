@@ -14,7 +14,7 @@ const friendRequestReducer = (state = initialState, { type, ...rest }) => {
         ...state,
         isLoading: true,
       };
-    case friends.ON_FETCH_FETCH_REQESTS:
+    case friends.ON_FETCH_FRIEND_REQUESTS:
       const { friendRequests } = rest;
 
       return {

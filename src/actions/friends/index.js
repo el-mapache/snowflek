@@ -37,8 +37,10 @@ const requestFriend = dispatch => ({ id }) => {
       }
     },
   })
-  .then((response) => {
-    console.log('requested!', response)
+  .then(() => {
+    // TODO this pattern is really weird, so make the fetch request a separate method, I think
+    // probably also make the `then` callback separate?
+    getAllFriendRequests(dispatch)();
   })
   .catch((error) => {
     const { json } = error;

@@ -18,7 +18,7 @@ const getFriendRequests = () => ({
 });
 
 const onGetFriendRequests = (friendRequests) => ({
-  type: friends.ON_FETCH_FETCH_REQESTS,
+  type: friends.ON_FETCH_FRIEND_REQUESTS,
   friendRequests,
 });
 

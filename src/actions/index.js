@@ -33,7 +33,7 @@ const friends = keyMirror({
   ON_FETCH_ALL: null,
   REQUEST_FRIEND: null,
   FETCH_FRIEND_REQUESTS: null,
-  ON_FETCH_FETCH_REQESTS: null,
+  ON_FETCH_FRIEND_REQUESTS: null,
   ADD_FRIEND: null,
   REMOVE_FRIEND: null,
   ON_ERROR: null,
