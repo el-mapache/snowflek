@@ -28,12 +28,12 @@ const friendRequests = dispatch => () => {
     });
 };
 
-const requestFriend = dispatch => ({ email, id }) => {
+const requestFriend = dispatch => ({ id }) => {
   fetch(`${resource}`, {
     method: 'POST',
     data: {
-      friend_request: {
-        email, id
+      friend: {
+        id
       }
     },
   })

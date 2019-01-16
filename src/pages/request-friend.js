@@ -110,6 +110,10 @@ class YourFriendRequests extends React.Component {
 const handleValidation = (values) => {
   let errors = {};
 
+  if (!values.email.length) {
+    errors.email = 'Sorry, but we need a valid email address';
+  }
+
   return errors;
 };
 
@@ -128,7 +132,6 @@ class RequestFriendPage extends React.Component {
     const friend = users.users[this.state.currentFriend];
 
     this.props.requestFriend({
-      email: friend.email,
       id: friend.id,
     });
   }
