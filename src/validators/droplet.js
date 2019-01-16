@@ -23,6 +23,7 @@ class DropletValidator {
 
   dropletForToday() {
     const { created_at } = this.droplet;
+
     let dropletExists = false;
 
     if (!created_at) {

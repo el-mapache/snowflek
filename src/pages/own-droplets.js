@@ -23,12 +23,23 @@ class OwnDropletsPage extends React.Component {
   }
 
   renderDroplets() {
-    return this.props.myDroplets.map((droplet) => (
-      <Droplet
-        content={droplet.content}
-        key={`${droplet.id}${droplet.created_at}`}
-      />
-    ));
+    if (!this.props.myDroplets.length) {
+      return null;
+    }
+
+    const validator = dropletValidator(this.props.myDroplets[0]);
+    const dropletForToday = validator.dropletForToday();
+
+    if (dropletForToday) {
+      return this.props.myDroplets.map((droplet) => (
+        <Droplet
+          content={droplet.content}
+          key={`${droplet.id}${droplet.created_at}`}
+        />
+      ));
+    }
+
+    return this.renderDropletCreator(dropletForToday)
   }
 
   renderDropletCreator(dropletExists) {
@@ -46,7 +57,6 @@ class OwnDropletsPage extends React.Component {
         <Loader isLoading={this.props.isLoading}>
           { this.renderDroplets() }
         </Loader>
-        { this.renderDropletCreator(validator.dropletForToday()) }
       </section>
     );
   }

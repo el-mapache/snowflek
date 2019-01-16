@@ -6,7 +6,9 @@ import { createDroplet } from '../../actions/droplets';
 import DropletValidator from '../../validators/droplet';
 
 const mapStateToProps = ({ droplets }) => {
-  return { errors: droplets.errors };
+  return {
+    errors: droplets.errors
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
