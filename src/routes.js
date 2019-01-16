@@ -39,7 +39,8 @@ const Routes = () => (
             component={OwnDropletsPage}
           />
           <PrivateRoute
-            path="friends/:id/droplets"
+            path="/friends/:id/droplets"
+            isOptimistic={isOptimistic}
             isAuthenticated={isAuthenticated}
             component={FriendDropletsPage}
           />

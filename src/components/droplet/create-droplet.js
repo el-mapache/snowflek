@@ -42,6 +42,7 @@ class CreateDroplet extends React.Component {
       <section id="create-droplet">
         <h3>Hey friend, why not write something today?</h3>
         <Form
+          button="write my droplet"
           initialValues={this.state}
           onSubmit={this.handleSubmit}
           validate={handleValidation}

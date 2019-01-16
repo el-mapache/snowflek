@@ -4,29 +4,26 @@ import {
   onCreateFriendship,
   onCreateFriendshipError,
 } from './creators';
-import { friendRequests } from '../friends';
+import { getAllFriendRequests } from '../friends';
 
-const confirmFriendship = dispatch => ({ id, email }) => {
+const resource = 'friendships';
+
+export const confirmFriendship = dispatch => ({ id }) => {
   dispatch(onCreateFriendshipStart());
 
-  fetch('friendships', {
+  fetch(resource, {
     method: 'POST',
     data: {
-      friend: {
-        id
-      },
+      friend: { id },
     },
   })
   .then(({ friend }) => {
     dispatch(onCreateFriendship(friend));
-    friendRequests(dispatch)();
+    // trigger a refresh to the list of pending friendships
+    getAllFriendRequests(dispatch)();
   })
   .catch((error) => {
     dispatch(onCreateFriendshipError(error));
     console.log('error', error)
   });
-};
-
-export {
-  confirmFriendship,
 };

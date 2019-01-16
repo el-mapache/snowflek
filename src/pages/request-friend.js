@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { findUser } from '../actions/users';
 import {
   requestFriend,
-  friendRequests,
+  getAllFriendRequests,
 } from '../actions/friends';
 import Form from '../components/form';
 import FieldSet from '../components/fieldset';
@@ -19,7 +19,7 @@ const mapStateToProps = ({ users, friendRequests }) => ({
 const mapDispatchToProps = dispatch => ({
   fetchUser: findUser(dispatch),
   requestFriend: requestFriend(dispatch),
-  getFriendRequests: friendRequests(dispatch),
+  getFriendRequests: getAllFriendRequests(dispatch),
 });
 
 class MakeFriendshipRequest extends React.Component {

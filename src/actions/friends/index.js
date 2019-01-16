@@ -12,10 +12,10 @@ const getFriends = (dispatch) => () => {
   dispatch(fetchAllFriends());
 };
 
-const friendRequests = dispatch => () => {
+const getAllFriendRequests = dispatch => () => {
   dispatch(getFriendRequests());
 
-  fetch(`${resource}`)
+  fetch(resource)
     .then(({ outgoing_requests, incoming_requests }) => {
       dispatch(onGetFriendRequests({
         outgoingRequests: outgoing_requests,
@@ -29,7 +29,7 @@ const friendRequests = dispatch => () => {
 };
 
 const requestFriend = dispatch => ({ id }) => {
-  fetch(`${resource}`, {
+  fetch(resource, {
     method: 'POST',
     data: {
       friend: {
@@ -53,7 +53,7 @@ const requestFriend = dispatch => ({ id }) => {
 };
 
 export {
+  getAllFriendRequests,
   getFriends,
   requestFriend,
-  friendRequests,
 };

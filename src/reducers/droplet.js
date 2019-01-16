@@ -21,9 +21,11 @@ const dropletsReducer = (state = initialState, { type, ...rest }) => {
         isFetching: false,
       };
     case droplet.ON_CREATE:
+      const [ mostRecentDroplet, ...droplets ] = rest.droplets;
+
       return {
         // for now, we want to show the latest (just created) droplet first in the list
-        droplets: [...rest.droplets, ...state.droplets],
+        droplets: [mostRecentDroplet, ...state.droplets],
         errors: {},
         isFetching: false,
       };

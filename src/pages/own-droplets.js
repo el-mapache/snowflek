@@ -8,7 +8,7 @@ import dropletValidator from '../validators/droplet';
 
 const mapStateToProps = ({ droplets }) => {
   return {
-    myDroplets: droplets.droplets,
+    droplets: droplets.droplets,
     isLoading: droplets.isFetching,
   };
 };
@@ -23,15 +23,17 @@ class OwnDropletsPage extends React.Component {
   }
 
   renderDroplets() {
-    if (!this.props.myDroplets.length) {
+    const { droplets } = this.props;
+
+    if (!droplets.length) {
       return null;
     }
 
-    const validator = dropletValidator(this.props.myDroplets[0]);
+    const validator = dropletValidator(droplets[0]);
     const dropletForToday = validator.dropletForToday();
 
     if (dropletForToday) {
-      return this.props.myDroplets.map((droplet) => (
+      return droplets.map((droplet) => (
         <Droplet
           content={droplet.content}
           key={`${droplet.id}${droplet.created_at}`}
@@ -49,8 +51,6 @@ class OwnDropletsPage extends React.Component {
   }
  
   render() {
-    const validator = dropletValidator(this.props.myDroplets[0]);
-
     return (      
       <section>
         <h1>my droplets</h1>
