@@ -25,6 +25,7 @@ const friendlyFormError = (formFields, maybeFieldName, message) => {
 
 class Form extends React.Component {
   static propTypes = {
+    button: PropTypes.oneOfType([ PropTypes.element, PropTypes.string ]),
     errors: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
     onSubmit: PropTypes.func
   }
