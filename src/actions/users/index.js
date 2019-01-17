@@ -1,5 +1,5 @@
 import { foundUser, fetchingUser, userFetchError } from './creators';
-import { onFriendRequestError } from '../friends/creators';
+import { onFriendRequestError } from '../friend-requests/creators';
 import fetch from '../../utils/slowdrip-fetch';
 
 const resource = 'users';

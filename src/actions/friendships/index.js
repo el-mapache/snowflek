@@ -4,7 +4,7 @@ import {
   onCreateFriendship,
   onCreateFriendshipError,
 } from './creators';
-import { getAllFriendRequests } from '../friends';
+import { getAllFriendRequests } from '../friend-requests';
 
 const resource = 'friendships';
 
