@@ -10,7 +10,7 @@ import SignupPage from './pages/sign-up';
 import SigninPage from './pages/sign-in';
 import OwnDropletsPage from './pages/own-droplets';
 import FriendDropletsPage from './pages/friend-droplets';
-import RequestFriendPage from './pages/request-friend';
+import FriendRequestsPage from './pages/friend-requests';
 
 const Routes = () => (
   <AuthProvider>
@@ -48,7 +48,7 @@ const Routes = () => (
             route="/friends/request"
             isOptimistic={isOptimistic}
             isAuthenticated={isAuthenticated}
-            component={RequestFriendPage}
+            component={FriendRequestsPage}
           />
         </Switch>
       </App>

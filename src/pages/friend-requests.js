@@ -84,7 +84,7 @@ const handleValidation = (values) => {
   return errors;
 };
 
-class RequestFriendPage extends React.Component {
+class FriendRequestsPage extends React.Component {
   state = {
     email: '',
   }
@@ -135,5 +135,5 @@ class RequestFriendPage extends React.Component {
   }
 }
 
-export { RequestFriendPage };
-export default connect(mapStateToProps, mapDispatchToProps)(RequestFriendPage);
+export { FriendRequestsPage };
+export default connect(mapStateToProps, mapDispatchToProps)(FriendRequestsPage);
