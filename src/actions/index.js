@@ -50,9 +50,11 @@ const server = keyMirror({
 });
 
 const users = keyMirror({
-  FIND: null,
-  FETCHING: null,
-  ERROR: null,
+  START_USER_FIND: null,
+  ON_USER_FIND: null,
+  ON_USER_FIND_ERROR: null,
+  SET_CURRENT_USER: null,
+  UNSET_CURRENT_USER: null
 });
 
 export {

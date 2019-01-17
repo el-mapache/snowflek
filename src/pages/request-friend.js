@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { findUser } from '../actions/users';
-import {
-  requestFriend,
-  getAllFriendRequests,
-} from '../actions/friends';
+import { getAllFriendRequests } from '../actions/friend-requests';
 import Form from '../components/form';
 import FieldSet from '../components/fieldset';
-import Button from '../components/button';
-import Message from '../components/message';
 import IncomingFriendRequests from '../components/incoming-friend-requests';
+import RequestFriend from '../components/request-friend';
 
 const mapStateToProps = ({ users, friendRequests }) => ({
   users,
@@ -18,44 +14,8 @@ const mapStateToProps = ({ users, friendRequests }) => ({
 });
 const mapDispatchToProps = dispatch => ({
   fetchUser: findUser(dispatch),
-  requestFriend: requestFriend(dispatch),
   getFriendRequests: getAllFriendRequests(dispatch),
 });
-
-class MakeFriendshipRequest extends React.Component {
-  static propTypes = {
-    friend: PropTypes.oneOfType([
-      () => null,
-      PropTypes.shape({
-        name: PropTypes.string,
-        email: PropTypes.email,
-      }),
-    ]),
-    handleFriendRequest: PropTypes.func.isRequired,
-  }
-
-  renderActionOrError() {
-    if (this.props.error) {
-      return <Message message={this.props.error} />
-    }
-
-    return (
-      <div>
-        <p>Looks like {this.props.friend.email} is available for friendship!</p>
-        <Button onClick={this.props.handleFriendRequest}>
-          Request a friendship
-        </Button>
-      </div>
-    );
-  }
-  render() {
-    if (!this.props.friend) {
-      return null;
-    }
-
-    return this.renderActionOrError();
-  }
-}
 
 class OutgoingFriendRequests extends React.Component {
   static propTypes = {
@@ -118,7 +78,7 @@ const handleValidation = (values) => {
   let errors = {};
 
   if (!values.email.length) {
-    errors.email = 'Sorry, but we need a valid email address';
+    errors.email = 'We need a valid email address to find your friend!';
   }
 
   return errors;
@@ -127,7 +87,6 @@ const handleValidation = (values) => {
 class RequestFriendPage extends React.Component {
   state = {
     email: '',
-    currentFriend: null,
   }
 
   componentDidMount() {
@@ -136,51 +95,27 @@ class RequestFriendPage extends React.Component {
 
   handleClick = () => {
     const { users } = this.props;
-    const friend = users.users[this.state.currentFriend];
+    const friend = users.currentUser;
 
-    // TODO this is not the best UI
-    /**
-     * essentially, we want a way to clear the current friend being sought
-     * once a successful friend request is made. since the state is spread out
-     * across the reducers and this component (not necessarily a problem)
-     * we have to do this suboptimal clearing of the email before the request
-     * is actually completed
-     * 
-     * MUST REWORK HOW FRIENDS/FRIENDSHIPS/USERS are abstracted! API clarity
-     * will help
-     */
-    this.setState(state => ({
-      ...state,
-      currentFriend: null
-    }), () => {
-      this.props.requestFriend({
-        id: friend.id,
-      });
+    this.props.requestFriend({
+      id: friend.id,
     });
   }
 
   handleSubmit = (values) => {
-    this.setState(state => ({
-      ...state,
-      currentFriend: values.email
-    }), () => {
-      this.props.fetchUser({
-        email: values.email,
-      });
+    this.props.fetchUser({
+      email: values.email,
     });
   }
  
   render() {
-    const { users, friendRequests } = this.props;
-    const formState = { email: this.state.email };
-
     return (
       <section id="friend-finder">
         <h2>Request a pal</h2>
         <Form
           button="Find friend"
-          errors={users.errors}
-          initialValues={formState}
+          errors={this.props.users.errors}
+          initialValues={this.state}
           onSubmit={this.handleSubmit}
           validate={handleValidation}
         >
@@ -190,11 +125,7 @@ class RequestFriendPage extends React.Component {
             type="email"
           />
         </Form>
-        <MakeFriendshipRequest
-          error={friendRequests.error.form}
-          friend={users.users[this.state.currentFriend]}
-          handleFriendRequest={this.handleClick}
-        />
+        <RequestFriend />
         <YourFriendRequests
           outgoingRequests={this.props.friendRequests.outgoingRequests}
           incomingRequests={this.props.friendRequests.incomingRequests}

@@ -5,6 +5,7 @@ import {
   onGetFriendRequests,
   onFriendRequestError,
 } from './creators';
+import { unsetCurrentUser } from '../users/creators';
 
 const resource = 'friend_requests';
 
@@ -28,13 +29,11 @@ const getAllFriendRequests = dispatch => () => {
     });
 };
 
-const requestFriend = dispatch => ({ id }) => {
+const requestFriendship = dispatch => ({ id }) => {
   fetch(resource, {
     method: 'POST',
     data: {
-      friend: {
-        id
-      }
+      friend: { id }
     },
   })
   .then(() => {
@@ -51,11 +50,12 @@ const requestFriend = dispatch => ({ id }) => {
     dispatch(onFriendRequestError({
       form: formattedError,
     }));
-  });
+  })
+  .finally(() => dispatch(unsetCurrentUser()));
 };
 
 export {
   getAllFriendRequests,
   getFriends,
-  requestFriend,
+  requestFriendship,
 };
