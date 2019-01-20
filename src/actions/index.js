@@ -2,6 +2,8 @@ import keyMirror from 'keymirror';
 
 const appMessages = keyMirror({
   ADD: null,
+  ADD_PAGE_MESSAGE: null,
+  CLEAR_PAGE_MESSAGE: null,
   CLEAR: null,
   CLEAR_ALL: null,
 });

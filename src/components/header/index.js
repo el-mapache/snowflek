@@ -21,6 +21,7 @@ class Header extends React.Component {
         <button type="button" onClick={this.props.handleSignOut}>Sign out</button>
         <Link to="/friends/requests">See friend requests</Link>
         <Link to="/droplets">Droplets</Link>
+        <Link to="/friends/100/droplets">Friend</Link>
       </nav> :
       null
     );

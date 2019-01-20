@@ -17,8 +17,9 @@ const usersReducer = (state = initialState, { type, ...rest }) => {
       };
     case users.ON_USER_FIND:
       const [ current ] = rest.users;
+
       return {
-        currentUser: current,
+        ...state,
         errors: {},
         isLoading: false,
         users: {
