@@ -5,7 +5,7 @@ import { setCookie } from './actions/cookie';
 import './app.css';
 
 const mapStateToProps = state => state;
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   setCookie: setCookie(dispatch)
 })
 
