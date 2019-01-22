@@ -32,12 +32,15 @@ const createDroplet = dispatch => ({ content }) => {
     method: 'POST',
     data: { content }
   })
-  .then((response) => {
-    dispatch(onCreateDroplet(response));
-  })
-  .catch((error) => {
-    dispatch(onCreateDropletError({ error: error.json.errors }));
-  })
+  .then(
+    (response) => {
+      dispatch(onCreateDroplet(response));
+    },
+    (errorResponse) => {
+      const error = error.json.errors;
+      dispatch(onCreateDropletError({ error }));
+    }
+  );
 };
 
 export {

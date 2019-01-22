@@ -3,16 +3,19 @@ import { connect } from 'react-redux';
 import { showUser } from '../actions/users';
 import { withPageMessage } from '../actions/helpers';
 import { pageMessageSelector } from '../reducers/app-messages';
-import { routerPathSelector } from '../utils/selectors';
+import { routerPathSelector, routerIdParamSelector } from '../utils/selectors';
+import { userSelector } from '../reducers/users';
 import Message from '../components/message';
 import purgePageMessage from '../components/purge-page-message';
 
 const mapStateToProps = (state, ownProps) => {
   const page = routerPathSelector(ownProps);
+  const friend = userSelector(state.users, routerIdParamSelector(ownProps));
 
   return {
+    friend,
+    messages: pageMessageSelector(page, state),
     page,
-    messages: pageMessageSelector(page, state)
   };
 }
 
@@ -29,7 +32,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 class FriendDropletsPage extends React.Component {
   componentDidMount() {
-    this.props.showUser({ id: this.props.match.params.id })
+    // maybe this should be a helper or something to select it
+    const { id } = this.props.match.params; 
+    this.props.showUser({ id })
   }
 
   render() {

@@ -16,7 +16,7 @@ const usersReducer = (state = initialState, { type, ...rest }) => {
         isLoading: true,
       };
     case users.ON_USER_FIND:
-      const [ current ] = rest.users;
+      const current = rest.user;
 
       return {
         ...state,
@@ -48,4 +48,5 @@ const usersReducer = (state = initialState, { type, ...rest }) => {
   }
 };
 
+export const userSelector = (state, id) => state.users[id];
 export default usersReducer;

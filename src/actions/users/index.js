@@ -42,7 +42,7 @@ const showUser = dispatch => ({ id }) => {
 
   return fetch(`${resource}/${id}`)
     .then((response) => {
-      const { user, droplets } = response;
+      const { user } = response;
 
       dispatch(foundUser(user));
       

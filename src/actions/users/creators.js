@@ -7,9 +7,9 @@ import { users } from '../index';
  * when / if refactoring and changes occur
  * 
 */
-const foundUser = (foundUsers) => ({
+const foundUser = (user) => ({
   type: users.ON_USER_FIND,
-  users: foundUsers,
+  user,
 });
 
 const fetchingUser = () => ({
