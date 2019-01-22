@@ -26,6 +26,7 @@ const friendlyFormError = (formFields, maybeFieldName, message) => {
 class Form extends React.Component {
   static propTypes = {
     button: PropTypes.oneOfType([ PropTypes.element, PropTypes.string ]),
+    buttonClassname: PropTypes.string,
     errors: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
     onSubmit: PropTypes.func
   }
@@ -61,10 +62,14 @@ class Form extends React.Component {
       >
         {({ handleSubmit, isSubmitting, errors }) => {
           return (
-            <form onSubmit={handleSubmit}>
+            <form className="ui form" onSubmit={handleSubmit}>
               <Message message={errors.form} />
               { this.props.children }
-              <Button type="submit" disabled={isSubmitting}>
+              <Button
+                className={this.props.buttonClassname}
+                disabled={isSubmitting}
+                type="submit"
+              >
                 { button }
               </Button>
             </form>

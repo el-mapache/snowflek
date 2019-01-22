@@ -23,7 +23,7 @@ const fieldFactory = (props) => {
 }
 
 const FieldSet = ({ name, label, ...rest }) => (
-  <div>
+  <div className="field">
     <label htmlFor={name}>{label}</label>
     { fieldFactory({ name, ...rest }) }
     <ErrorMessage name={name} />

@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
+
+const classes = (names) => classNames('ui button', names);
 
 class Button extends React.Component {
   static propTypes ={ 
@@ -18,17 +21,15 @@ class Button extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <button
-          type={this.props.type}
-          className={this.props.className}
-          disabled={this.props.disabled}
-          onClick={this.handleClick}
-        >
-          { this.props.children }
-        </button>
-      </div>
+    return (      
+      <button
+        type={this.props.type}
+        className={classes(this.props.className)}
+        disabled={this.props.disabled}
+        onClick={this.handleClick}
+      >
+        { this.props.children }
+      </button>
     );
   }
 }
