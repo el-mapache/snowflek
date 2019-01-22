@@ -33,4 +33,13 @@ const friendRequestReducer = (state = initialState, { type, ...rest }) => {
   }
 };
 
+export const friendRequestErrorSelector = (state) => {
+  const { error } = state.friendRequests;
+
+  if (!Object.keys(error).length) {
+    return null;
+  }
+
+  return error;
+};
 export default friendRequestReducer;

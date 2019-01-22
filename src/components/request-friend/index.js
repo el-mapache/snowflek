@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestFriendship } from '../../actions/friend-requests';
+import { friendRequestErrorSelector } from '../../reducers/friend-requests';
 import Message from '../message';
 import Button from '../button';
 
 const mapStateToProps = (state) => {
   return {
     friend: state.users.currentUser,
-    requestFriendError: state.friendRequests.error.form,
+    friendRequestError: friendRequestErrorSelector(state),
   };
 };
 const mapDispatchToProps = dispatch => ({
@@ -33,8 +34,14 @@ class RequestFriend extends React.Component {
   }
 
   renderActionOrError() {
-    if (this.props.requestFriendError) {
-      return <Message message={this.props.requestFriendError} />;
+    if (this.props.friendRequestError) {
+      // TODO this pattern sucks and just hides the error handling problem
+      // the form only accepts one kind of error, which is a mistake
+      return <Message message={this.props.friendRequestError.form} />;
+    }
+
+    if (!this.props.friend) {
+      return null;
     }
 
     return (
@@ -47,10 +54,6 @@ class RequestFriend extends React.Component {
     );
   }
   render() {
-    if (!this.props.friend) {
-      return null;
-    }
-
     return this.renderActionOrError();
   }
 }

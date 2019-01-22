@@ -21,16 +21,17 @@ const findUser = dispatch => ({ email }) => {
 
       if (!users.length) {
         dispatch(userFetchError({
-          form: `Sorry, we couldn't find your friend's email: ${email}.`,
+          form: `We looked high and low, but we couldn't find your friend's email: ${email}.`,
         }))
       } else {
         dispatch(foundUser(users));
-        dispatch(setCurrentUser({ currentUser: users[0] }));
+        dispatch(setCurrentUser(users[0]));
       }
     },
     (error) => {
-      console.log('error?', error);
-      dispatch(userFetchError());
+      dispatch(userFetchError({
+        form: 'Something went wrong looking for that user!'
+      }));
     }
   );
 };

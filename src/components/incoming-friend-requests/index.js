@@ -41,8 +41,10 @@ class IncomingFriendRequest extends React.Component {
  
     return (
       <div>
-        <span>{friend.name}</span>
-        <span>{friend.email}</span>
+        <div>
+          <span>{friend.name}</span>
+          <span>{friend.email}</span>
+        </div>
         <Button onClick={this.handleClick}>
           Confirm your friendship
         </Button>

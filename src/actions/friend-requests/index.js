@@ -17,16 +17,18 @@ const getAllFriendRequests = dispatch => () => {
   dispatch(getFriendRequests());
 
   fetch(resource)
-    .then(({ outgoing_requests, incoming_requests }) => {
-      dispatch(onGetFriendRequests({
-        outgoingRequests: outgoing_requests,
-        incomingRequests: incoming_requests,
-      }));
-    })
-    .catch((error) => {
-      // TODO: handle this, somehow
-      console.log('error?', error);
-    });
+    .then(
+      ({ outgoing_requests, incoming_requests }) => {
+        dispatch(onGetFriendRequests({
+          outgoingRequests: outgoing_requests,
+          incomingRequests: incoming_requests,
+        }));
+      },
+      (error) => {
+        // TODO: handle this, somehow
+        console.log('error?', error);
+      }
+    );
 };
 
 const requestFriendship = dispatch => ({ id }) => {
@@ -42,10 +44,11 @@ const requestFriendship = dispatch => ({ id }) => {
     getAllFriendRequests(dispatch)();
   })
   .catch((error) => {
-    const { json } = error;
-    const errorObject = Object.entries(json);
+    const { errors } = error.json;
+    const [ key, messages ] = Object.entries(errors)[0];
+
     // TODO why is every error formatted so goofily?
-    const formattedError = `${errorObject[0][0]} ${errorObject[0][1]}`;
+    const formattedError = `${key} ${messages[0]}!`;
 
     dispatch(onFriendRequestError({
       form: formattedError,
