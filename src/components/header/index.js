@@ -32,31 +32,22 @@ class Header extends React.Component {
           <Menu secondary inverted pointing size="large">
             <Container>
               <Menu.Menu position="left">
-                <Menu.Item>
-                  <Link to="/droplets">
-                    <h4>slowdrip</h4>
-                  </Link>
+                <Menu.Item as={Link} to="/droplets">
+                  <h4>slowdrip</h4>
                 </Menu.Item>
               </Menu.Menu>
               
-              <Menu.Item as={() =>
-                <Link className="item link" to="/friends/requests">
-                  See friend requests
-                </Link>
-              } />
-              <Menu.Item active={this.state.activeItem === "droplets"}>
-                <Link to="/droplets">Droplets</Link>
-                </Menu.Item>
-              <Menu.Item>
-                <Link to="/friends/2/droplets">Friend</Link>
+              <Menu.Item as={Link} to="/friends/requests">
+                See friend requests
               </Menu.Item>
-              <Menu.Item as="span">
-                <Button
-                  onClick={this.props.handleSignOut}
-                  className="inverted gray"
-                >
-                    Sign out
-                </Button>
+              <Menu.Item as={Link} active={this.state.activeItem === "droplets"} to="/droplets">
+                Droplets
+              </Menu.Item>
+              <Menu.Item as={Link} to="/friends/2/droplets">
+                Friends
+              </Menu.Item>
+              <Menu.Item as={Button} onClick={this.props.handleSignOut} className="inverted gray">
+                Sign out
               </Menu.Item>
             </Container>
           </Menu>
