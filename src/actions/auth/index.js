@@ -68,16 +68,18 @@ const verifyToken = dispatch => (params) => {
   dispatch(verifyingToken());
 
   fetch(`${NAMESPACE}/validate_token`, { params: { ...params } })
-    .then((response) => {
-      dispatch(validateToken(response));
-    })
-    .catch(() => {
-      dispatch(verifyTokenFail());
-      dispatch(addAppMessage({
-        level: 'error',
-        messages: ['You must sign up or sign in to continue!'],
-      }));
-    })
+    .then(
+      (response) => {
+        dispatch(validateToken(response));
+      },
+      () => {
+        dispatch(verifyTokenFail());
+        dispatch(addAppMessage({
+          level: 'error',
+          messages: ['You must sign up or sign in to continue!'],
+        }));
+      }      
+    );
 };
 
 export {

@@ -10,7 +10,6 @@ const purgePageMessage = (Component) => () =>
     }
 
     render() {
-      console.log('sndfhhasuds',store)
       return (
         <Component {...this.props} />
       );

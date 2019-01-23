@@ -4,15 +4,18 @@ import { showUser } from '../actions/users';
 import { withPageMessage } from '../actions/helpers';
 import { pageMessageSelector } from '../reducers/app-messages';
 import { routerPathSelector, routerIdParamSelector } from '../utils/selectors';
-import { userSelector } from '../reducers/users';
+import { userSelector, userLoadingSelector } from '../reducers/users';
+import Loader from '../components/loader';
+import Droplet from '../components/droplet';
 import Message from '../components/message';
 import purgePageMessage from '../components/purge-page-message';
 
 const mapStateToProps = (state, ownProps) => {
   const page = routerPathSelector(ownProps);
-  const friend = userSelector(state.users, routerIdParamSelector(ownProps));
+  const friend = userSelector(state, routerIdParamSelector(ownProps));
 
   return {
+    loading: userLoadingSelector(state),
     friend,
     messages: pageMessageSelector(page, state),
     page,
@@ -37,16 +40,37 @@ class FriendDropletsPage extends React.Component {
     this.props.showUser({ id })
   }
 
-  render() {
-    console.log('pal droplet props', this.props)
+  renderDroplets() {
+    const { friend } = this.props;
+
+    return friend.droplets.map((droplet) =>
+      <Droplet {...droplet} key={`${friend.id}-${droplet.id}`}/>
+    );
+  }
+
+  renderPageMessages() {
+    return this.props.messages.map((message, index) =>
+      <Message message={message.message} key={index} />
+    );
+  }
+
+  renderContent() {
     return (
       <section id="friend-droplets">
-        <h2>its me, your friend!</h2>
-        { this.props.messages.map((message, index) =>
-            <Message message={message.message} key={index} />
-          )
-        }
+        <h2>This is how { this.props.friend.email } was feeling</h2>
+        { this.renderPageMessages() }
+        <section>
+          { this.renderDroplets() }
+        </section>
       </section>
+    );
+  }
+
+  render() {
+    return (
+      <Loader isLoading={this.props.loading && !this.props.friend}>
+        { this.props.friend ? this.renderContent() : null }
+      </Loader>
     );
   }
 }

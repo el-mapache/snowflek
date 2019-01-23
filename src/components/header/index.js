@@ -48,7 +48,7 @@ class Header extends React.Component {
                 <Link to="/droplets">Droplets</Link>
                 </Menu.Item>
               <Menu.Item>
-                <Link to="/friends/100/droplets">Friend</Link>
+                <Link to="/friends/2/droplets">Friend</Link>
               </Menu.Item>
               <Menu.Item as="span">
                 <Button

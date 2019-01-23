@@ -1,6 +1,6 @@
 import { Menu } from 'semantic-ui-react';
 
-const snowflekMenu = (props) => ({
+const sfMenu = (props) => ({
 
 });
 

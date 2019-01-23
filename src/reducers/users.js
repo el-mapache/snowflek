@@ -48,5 +48,7 @@ const usersReducer = (state = initialState, { type, ...rest }) => {
   }
 };
 
-export const userSelector = (state, id) => state.users[id];
+export const userSelector = (state, id) => state.users.users[id];
+export const userLoadingSelector = state => state.users.isLoading;
+
 export default usersReducer;
