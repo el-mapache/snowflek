@@ -16,7 +16,6 @@ export const withPageMessage = dispatch => (message, action) => data => {
     .then(
       resolve,
       () => {
-        console.log('why am i happening')
         dispatch(addPageMessage({
           ...message
         }));

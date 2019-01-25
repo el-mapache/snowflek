@@ -1,7 +1,8 @@
-import { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { setCookie } from './actions/cookie';
+import Loader from './components/loader';
 import './app.css';
 
 const mapStateToProps = state => state;
@@ -9,7 +10,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   setCookie: setCookie(dispatch)
 })
 
-class App extends Component {
+class App extends React.Component {
   componentDidMount() {
     const csrfToken = this.props.allCookies.csrftoken;
 
@@ -17,7 +18,7 @@ class App extends Component {
   }
  
   render() {
-    return this.props.children;
+    return <Loader isLoading={this.props.loading}>{this.props.children}</Loader>;
   }
 }
 

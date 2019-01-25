@@ -49,9 +49,9 @@ class Auth extends React.Component {
 
   render() {
     return (
-      <Loader isLoading={this.props.isLoading}>
-        { this.props.children(this.props.isAuthenticated, this.state.optimistic) }
-      </Loader>
+      
+        this.props.children(this.props.isAuthenticated, this.state.optimistic)
+      
     );
   }
 }

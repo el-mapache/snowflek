@@ -33,12 +33,17 @@ class OwnDropletsPage extends React.Component {
     const dropletForToday = validator.dropletForToday();
 
     if (dropletForToday) {
-      return droplets.map((droplet) => (
-        <Droplet
-          content={droplet.content}
-          key={`${droplet.id}${droplet.created_at}`}
-        />
-      ));
+      return (
+        <div>
+          <h1>my droplets</h1>
+          { droplets.map((droplet) => (
+              <Droplet
+                content={droplet.content}
+                key={`${droplet.id}${droplet.created_at}`}
+              />
+          )) }
+        </div>
+      );
     }
 
     return this.renderDropletCreator(dropletForToday)
@@ -53,7 +58,6 @@ class OwnDropletsPage extends React.Component {
   render() {
     return (      
       <section>
-        <h1>my droplets</h1>
         <Loader isLoading={this.props.isLoading}>
           { this.renderDroplets() }
         </Loader>

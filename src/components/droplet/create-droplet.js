@@ -39,7 +39,7 @@ class CreateDroplet extends React.Component {
 
   render() {
     return (
-      <section id="create-droplet">
+      <section id="create-droplet" className="ui raised very padded text container segment">
         <h3>Hey friend, why not write something today?</h3>
         <Form
           button="write my droplet"

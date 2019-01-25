@@ -16,3 +16,7 @@ code {
 .ui.menu, .ui.segment {
   border-radius: initial;
 }
+
+.padding-top-2 {
+  padding-top: 4em;
+}

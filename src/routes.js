@@ -16,45 +16,47 @@ import FriendRequestsPage from './pages/friend-requests';
 const Routes = () => (
   <AuthProvider>
     {(isAuthenticated, isOptimistic) => (
-      <App>
+      <>
         <Header isAuthenticated={isAuthenticated} />
-        <SystemMessages />
-        <Container>
-          <Switch>
-            <RedirectRoute
-              exact
-              path="/sign-in"
-              component={SigninPage}
-              shouldRedirect={isAuthenticated}
-              redirectTo="/droplets"
-            />
-            <RedirectRoute
-              path="/sign-up"
-              component={SignupPage}
-              shouldRedirect={isAuthenticated}
-              redirectTo="/droplets"
-            />
-            <PrivateRoute
-              path="/droplets"
-              isOptimistic={isOptimistic}
-              isAuthenticated={isAuthenticated}
-              component={OwnDropletsPage}
-            />
-            <PrivateRoute
-              path="/friends/:id/droplets"
-              isOptimistic={isOptimistic}
-              isAuthenticated={isAuthenticated}
-              component={FriendDropletsPage}
-            />
-            <PrivateRoute
-              route="/friends/request"
-              isOptimistic={isOptimistic}
-              isAuthenticated={isAuthenticated}
-              component={FriendRequestsPage}
-            />
-          </Switch>
-        </Container>
-      </App>
+        <App loading={!isAuthenticated}>
+          <Container className="padding-top-2">
+            <SystemMessages />            
+            <Switch>
+              <RedirectRoute
+                exact
+                path="/sign-in"
+                component={SigninPage}
+                shouldRedirect={isAuthenticated}
+                redirectTo="/droplets"
+              />
+              <RedirectRoute
+                path="/sign-up"
+                component={SignupPage}
+                shouldRedirect={isAuthenticated}
+                redirectTo="/droplets"
+              />
+              <PrivateRoute
+                path="/droplets"
+                isOptimistic={isOptimistic}
+                isAuthenticated={isAuthenticated}
+                component={OwnDropletsPage}
+              />
+              <PrivateRoute
+                path="/friends/:id/droplets"
+                isOptimistic={isOptimistic}
+                isAuthenticated={isAuthenticated}
+                component={FriendDropletsPage}
+              />
+              <PrivateRoute
+                route="/friends/request"
+                isOptimistic={isOptimistic}
+                isAuthenticated={isAuthenticated}
+                component={FriendRequestsPage}
+              />
+            </Switch>
+          </Container>
+        </App>
+      </>
     )}
   </AuthProvider>
 );

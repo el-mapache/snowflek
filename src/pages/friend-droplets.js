@@ -35,16 +35,19 @@ const mapDispatchToProps = (dispatch) => ({
 
 class FriendDropletsPage extends React.Component {
   componentDidMount() {
-    // maybe this should be a helper or something to select it
-    const { id } = this.props.match.params; 
+    const id = routerIdParamSelector(this.props);
     this.props.showUser({ id })
   }
 
   renderDroplets() {
     const { friend } = this.props;
 
-    return friend.droplets.map((droplet) =>
-      <Droplet {...droplet} key={`${friend.id}-${droplet.id}`}/>
+    return (
+      <section>
+        { friend.droplets.map((droplet) => (
+            <Droplet {...droplet} key={`${friend.id}-${droplet.id}`} />
+        ))}
+      </section>
     );
   }
 
@@ -54,22 +57,24 @@ class FriendDropletsPage extends React.Component {
     );
   }
 
+  renderHeading() {
+    return <h2>This is how { this.props.friend.email } was feeling</h2>;
+  }
+
   renderContent() {
     return (
       <section id="friend-droplets">
-        <h2>This is how { this.props.friend.email } was feeling</h2>
         { this.renderPageMessages() }
-        <section>
-          { this.renderDroplets() }
-        </section>
+        { this.props.friend && this.renderHeading() }
+        { this.props.friend && this.renderDroplets() }
       </section>
     );
   }
 
   render() {
     return (
-      <Loader isLoading={this.props.loading && !this.props.friend}>
-        { this.props.friend ? this.renderContent() : null }
+      <Loader active={this.props.loading && !this.props.friend}>
+        { this.renderContent() }
       </Loader>
     );
   }
