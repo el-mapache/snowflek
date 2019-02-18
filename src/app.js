@@ -6,7 +6,7 @@ import Loader from './components/loader';
 import './app.css';
 
 const mapStateToProps = state => state;
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = (dispatch) => ({
   setCookie: setCookie(dispatch)
 })
 
@@ -18,7 +18,13 @@ class App extends React.Component {
   }
  
   render() {
-    return <Loader isLoading={this.props.loading}>{this.props.children}</Loader>;
+    return (
+      <Loader
+        isLoading={this.props.loading}
+      >
+        {this.props.children}
+      </Loader>
+    );
   }
 }
 

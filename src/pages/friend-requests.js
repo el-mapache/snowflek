@@ -12,7 +12,7 @@ const mapStateToProps = ({ users, friendRequests }) => ({
   friendRequests,
 });
 const mapDispatchToProps = dispatch => ({
-  fetchUser: findUser(dispatch),
+  findUser: findUser(dispatch),
   getFriendRequests: getAllFriendRequests(dispatch),
 });
 
@@ -36,7 +36,7 @@ class FriendRequestsPage extends React.Component {
   }
 
   handleSubmit = (values) => {
-    this.props.fetchUser({
+    this.props.findUser({
       email: values.email,
     });
   }

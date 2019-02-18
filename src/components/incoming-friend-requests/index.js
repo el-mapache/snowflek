@@ -5,14 +5,6 @@ import { confirmFriendship } from '../../actions/friendships';
 import Button from '../button';
 import Message from '../message';
 
-const mapStateToProps = ({ friendships }) => ({
-  friendships,
-});
-
-const mapDispatchToProps = dispatch => ({
-  confirmFriendship: confirmFriendship(dispatch)
-});
-
 class IncomingFriendRequest extends React.Component {
   static propTypes = {
     friend: PropTypes.shape({
@@ -102,6 +94,14 @@ class IncomingFriendRequests extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ friendships }) => ({
+  friendships,
+});
+
+const mapDispatchToProps = dispatch => ({
+  confirmFriendship: confirmFriendship(dispatch)
+});
 
 export { IncomingFriendRequests };
 export default connect(mapStateToProps, mapDispatchToProps)(IncomingFriendRequests);

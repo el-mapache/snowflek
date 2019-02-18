@@ -7,11 +7,21 @@ import { clearAppMessage } from '../../actions/app-messages/creators';
 
 const mapStateToProps = ({ appMessages }) => ({ messages: appMessages.messages })
 const mapDispatchToProps = dispatch => ({
-  handleClearError(index) {
+  handleClearMessage(index) {
     dispatch(clearAppMessage({ index }));
   }
 });
 
+/**
+ * 
+ * Higher-order component that adds click handler support
+ * to a component by providing a button.
+ * 
+ * Currently, the user has to pass in an onclick handler and an index,
+ * but it might be better for this component to just be coupled to the messages reducer
+ * and provide the click handler fn as well.
+ * 
+ */
 const withAckable = (Component) =>
   class extends React.Component {
     static propTypes = {
@@ -27,12 +37,12 @@ const withAckable = (Component) =>
       const { onClick, ...rest } = this.props;
 
       return (
-        <>
+        <div>
           <Component {...rest} />
           <button type="button" onClick={this.handleClick}>
             clear
           </button>
-        </>
+        </div>
       );
     }
   };
@@ -49,6 +59,7 @@ class SystemMessages extends React.Component {
         message: PropTypes.string,
       })
     ),
+    handleClearMessage: PropTypes.func,
   }
 
   render() {
@@ -60,7 +71,7 @@ class SystemMessages extends React.Component {
             key={`${index}-${message}`}
             level={level}
             message={message}
-            onClick={this.props.handleClearError}
+            onClick={this.props.handleClearMessage}
           /> 
         );
       })

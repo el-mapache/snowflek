@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import cookieSelector from '../../utils/cookie-selector';
 import { verifyToken } from '../../actions/auth';
-import Loader from '../loader';
 
 const mapStateToProps = ({ auth }) => auth;
 const mapDispatchToProps = dispatch => ({
@@ -12,10 +11,13 @@ const mapDispatchToProps = dispatch => ({
 class Auth extends React.Component {
   // TODO not sure this is the best way to encode the idea of allowing
   // routing to continue, but for no information to be loaded, until
-  // the user is authenticated. `optimistic` acts as
-  // another gate to prevent multiple routing calls. For example,
+  // the user is authenticated.
+
+  // the `optimistic` flag acts as another gate to prevent multiple routing calls.
+  // For example:
+  //
   // if a user has a valid auth token, and attempts to view their droplets
-  // page, the front end will first redirect them to the signin page, then
+  // page, the front-end will first redirect them to the signin page, then
   // back to droplets. This occurs because the PrivateRoute component
   // relies on a separate flag to indicate if the user is authenticated or not.
   // In the case of the user first visting the app, the store will not have been
@@ -49,9 +51,7 @@ class Auth extends React.Component {
 
   render() {
     return (
-      
-        this.props.children(this.props.isAuthenticated, this.state.optimistic)
-      
+      this.props.children(this.props.isAuthenticated, this.state.optimistic)
     );
   }
 }
