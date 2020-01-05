@@ -10,6 +10,7 @@ import SystemMessages from './components/system-messages';
 import SignupPage from './pages/sign-up';
 import SigninPage from './pages/sign-in';
 import OwnDropletsPage from './pages/own-droplets';
+import FriendsPage from './pages/friends';
 import FriendDropletsPage from './pages/friend-droplets';
 import FriendRequestsPage from './pages/friend-requests';
 
@@ -18,7 +19,7 @@ const Routes = () => (
     {(isAuthenticated, isOptimistic) => (
       <>
         <Header isAuthenticated={isAuthenticated} />
-        <App loading={!isAuthenticated}>
+        <App>
           <Container className="padding-top-2">
             <SystemMessages />            
             <Switch>
@@ -40,6 +41,12 @@ const Routes = () => (
                 isOptimistic={isOptimistic}
                 isAuthenticated={isAuthenticated}
                 component={OwnDropletsPage}
+              />
+              <PrivateRoute
+                path="/friends"
+                isOptimistic={isOptimistic}
+                isAuthenticated={isAuthenticated}
+                component={FriendsPage}
               />
               <PrivateRoute
                 path="/friends/:id/droplets"

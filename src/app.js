@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { setCookie } from './actions/cookie';
 import Loader from './components/loader';
-import './app.css';
+
 
 const mapStateToProps = state => state;
 const mapDispatchToProps = (dispatch) => ({
@@ -18,13 +18,7 @@ class App extends React.Component {
   }
  
   render() {
-    return (
-      <Loader
-        isLoading={this.props.loading}
-      >
-        {this.props.children}
-      </Loader>
-    );
+    return this.props.children
   }
 }
 
