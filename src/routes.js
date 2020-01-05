@@ -16,7 +16,7 @@ import FriendRequestsPage from './pages/friend-requests';
 
 const Routes = () => (
   <AuthProvider>
-    {(isAuthenticated, isOptimistic) => (
+    {(isAuthenticated, isAuthenticating) => (
       <>
         <Header isAuthenticated={isAuthenticated} />
         <App>
@@ -38,25 +38,25 @@ const Routes = () => (
               />
               <PrivateRoute
                 path="/droplets"
-                isOptimistic={isOptimistic}
+                isAuthenticating={isAuthenticating}
                 isAuthenticated={isAuthenticated}
                 component={OwnDropletsPage}
               />
               <PrivateRoute
                 path="/friends"
-                isOptimistic={isOptimistic}
+                isAuthenticating={isAuthenticating}
                 isAuthenticated={isAuthenticated}
                 component={FriendsPage}
               />
               <PrivateRoute
                 path="/friends/:id/droplets"
-                isOptimistic={isOptimistic}
+                isAuthenticating={isAuthenticating}
                 isAuthenticated={isAuthenticated}
                 component={FriendDropletsPage}
               />
               <PrivateRoute
                 route="/friends/request"
-                isOptimistic={isOptimistic}
+                isAuthenticating={isAuthenticating}
                 isAuthenticated={isAuthenticated}
                 component={FriendRequestsPage}
               />

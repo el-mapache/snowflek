@@ -1,5 +1,4 @@
 import { foundUser, fetchingUser, userFetchError, setCurrentUser } from './creators';
-import { addPageMessage } from '../app-messages/creators';
 import { onFriendRequestError } from '../friend-requests/creators';
 import fetch from '../../utils/slowdrip-fetch';
 

@@ -2,21 +2,29 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Loading from '../loader';
 
-const PrivateRoute = ({ component: Component, isOptimistic, isAuthenticated, ...rest }) => {
+const isOptimisticallyAuthenticated = (authenticating, authenticated) =>
+  authenticating || authenticated;
+
+const PrivateRoute = ({ component: Component, isAuthenticating, isAuthenticated, ...rest }) => {
   return (
     <Route
       {...rest}
-      render={(props) => {
-        return (
-          isOptimistic || isAuthenticated ?
-          <Loading isLoading={!isAuthenticated}>
-            <Component {...props} />
-          </Loading> :
+      render={(props ) => {
+        let renderedComponent = (
           <Redirect to={{
             pathname: '/sign-in',
             state: { from: props.location }
           }} />
         );
+
+        if (isOptimisticallyAuthenticated(isAuthenticating, isAuthenticated)) {
+          renderedComponent = (
+            <Loading isLoading={!isAuthenticated}>
+              <Component {...props} />
+            </Loading>
+          );
+        }
+        return renderedComponent
       }}
     />
   );

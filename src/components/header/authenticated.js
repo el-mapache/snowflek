@@ -6,7 +6,6 @@ import React from 'react';
 
 
 const isActive = (currentPath, pathToMatch) => {
-  console.log(currentPath, pathToMatch)
   return currentPath === pathToMatch;
 };
 
