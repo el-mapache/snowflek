@@ -31,8 +31,9 @@ const droplet = keyMirror({
 });
 
 const friends = keyMirror({
-  FETCH_ALL: null,
-  ON_FETCH_ALL: null,
+  FETCH_ALL_FRIENDS: null,
+  ON_FETCH_ALL_FRIENDS: null,
+  ON_FETCH_ALL_FRIENDS_ERROR: null,
   REQUEST_FRIEND: null,
   FETCH_FRIEND_REQUESTS: null,
   ON_FETCH_FRIEND_REQUESTS: null,

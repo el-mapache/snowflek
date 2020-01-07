@@ -25,6 +25,13 @@ const Routes = () => (
             <Switch>
               <RedirectRoute
                 exact
+                path="/"
+                component={SigninPage}
+                shouldRedirect={isAuthenticated}
+                redirectTo="/droplets"
+              />
+              <RedirectRoute
+                exact
                 path="/sign-in"
                 component={SigninPage}
                 shouldRedirect={isAuthenticated}
@@ -43,6 +50,7 @@ const Routes = () => (
                 component={OwnDropletsPage}
               />
               <PrivateRoute
+                exact
                 path="/friends"
                 isAuthenticating={isAuthenticating}
                 isAuthenticated={isAuthenticated}

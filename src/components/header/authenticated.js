@@ -10,7 +10,6 @@ const isActive = (currentPath, pathToMatch) => {
 };
 
 const AuthenticatedHeader = ({ handleSignOut, location }) => {
-  console.log(location)
   return (
     <React.Fragment>          
       <Menu.Item active={isActive(location.pathname, '/friends/requests')}>
@@ -28,8 +27,10 @@ const AuthenticatedHeader = ({ handleSignOut, location }) => {
           Friends
         </Link>
       </Menu.Item>
-      <Menu.Item as={Button} onClick={handleSignOut} className="inverted gray">
-        Sign out
+      <Menu.Item>
+        <Button onClick={handleSignOut} className="inverted gray">
+          Sign out
+        </Button>
       </Menu.Item>
     </React.Fragment>
   );

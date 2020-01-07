@@ -9,6 +9,7 @@ import dropletReducer from './reducers/droplet';
 import friendRequestReducer from './reducers/friend-requests';
 import friendshipReducer from './reducers/friendships';
 import usersReducer from './reducers/users';
+import friendsReducer from './reducers/friends';
 
 const middlewares = applyMiddleware(updateSession, logger);
 const appState = combineReducers({
@@ -19,6 +20,7 @@ const appState = combineReducers({
   droplets: dropletReducer,
   friendRequests: friendRequestReducer,
   friendships: friendshipReducer,
+  friends: friendsReducer,
   users: usersReducer,
 });
 
