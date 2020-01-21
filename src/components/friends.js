@@ -1,4 +1,3 @@
-import { Divider, Item } from 'semantic-ui-react';
 import Friend from '../components/friend';
 import PlaceHolderWithImage from '../components/placeholder';
 import PropTypes from 'prop-types'
@@ -14,16 +13,15 @@ class Friends extends React.Component {
     }
 
     return (
-      <Item.Group>
+      <div>
         {
           friendsList.map((friend, index) =>
             <>
               <Friend friend={friend} key={`friend-${index}`} />
-              { index === friendsList.length - 1 ? null : <Divider /> }
             </>
           )
         }
-      </Item.Group>
+      </div>
     );
   }
 }

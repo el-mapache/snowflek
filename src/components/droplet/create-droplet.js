@@ -1,9 +1,11 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import Form from '..//form';
-import Fieldset from '../fieldset';
 import { createDroplet } from '../../actions/droplets';
+import {FormTransition} from '../transitions';
+import Card from '../card';
 import DropletValidator from '../../validators/droplet';
+import FieldGroup from '../field-group';
+import Form from '../form';
+import React from 'react';
 
 const mapStateToProps = ({ droplets }) => {
   return {
@@ -39,24 +41,31 @@ class CreateDroplet extends React.Component {
 
   render() {
     return (
-      <section id="create-droplet" className="ui raised very padded text container segment">
-        <h3>Hey friend, why not write something today?</h3>
-        <Form
-          button="write my droplet"
-          buttonClassname="blue"
-          initialValues={this.state}
-          onSubmit={this.handleSubmit}
-          validate={handleValidation}
-        >
-          <Fieldset
-            label="What's on your mind today?"
-            name="content"
-            type="textarea"
-            rows="6"
-            cols="60"
-          />
-        </Form>
-      </section>
+      <FormTransition>
+        {(style) => {
+          return (
+            <Card style={style} className="mx-auto">
+              <h3 className="h3 text-black-droplet-light">
+                What's on your mind?
+              </h3>
+              <Form
+                button="write my droplet"
+                initialValues={this.state}
+                onSubmit={this.handleSubmit}
+                validate={handleValidation}
+              >
+                <FieldGroup
+                  label="What's on your mind today?"
+                  name="content"
+                  type="textarea"
+                  rows="6"
+                  cols="60"
+                />
+              </Form>
+            </Card>
+          )
+        }}
+      </FormTransition>
     );
   }
 }

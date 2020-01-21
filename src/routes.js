@@ -1,77 +1,81 @@
 import React from 'react';
-import { Switch } from 'react-router-dom';
-import { Container } from 'semantic-ui-react';
+import { Switch, Route } from 'react-router-dom';
 import PrivateRoute from './components/private-route';
 import RedirectRoute from './components/redirect-route';
 import AuthProvider from './components/auth-provider';
 import App from './app';
 import Header from './components/header';
 import SystemMessages from './components/system-messages';
-import SignupPage from './pages/sign-up';
+import LandingPage from './pages/landing';
 import SigninPage from './pages/sign-in';
+import SignupPage from './pages/sign-up';
 import OwnDropletsPage from './pages/own-droplets';
 import FriendsPage from './pages/friends';
 import FriendDropletsPage from './pages/friend-droplets';
 import FriendRequestsPage from './pages/friend-requests';
 
+function appPaths(isAuthenticated, isAuthenticating) {
+  return (
+    <Switch>
+      <Route
+        exact
+        path="/"
+        component={LandingPage}
+      />
+      <RedirectRoute
+        exact
+        path="/sign-in"
+        component={SigninPage}
+        shouldRedirect={isAuthenticated}
+        redirectTo="/droplets"
+      />
+      <RedirectRoute
+        path="/sign-up"
+        component={SignupPage}
+        shouldRedirect={isAuthenticated}
+        redirectTo="/droplets"
+      />
+      <PrivateRoute
+        path="/droplets"
+        isAuthenticating={isAuthenticating}
+        isAuthenticated={isAuthenticated}
+        component={OwnDropletsPage}
+      />
+      <PrivateRoute
+        exact
+        path="/friends"
+        isAuthenticating={isAuthenticating}
+        isAuthenticated={isAuthenticated}
+        component={FriendsPage}
+      />
+      <PrivateRoute
+        path="/friends/:id/droplets"
+        isAuthenticating={isAuthenticating}
+        isAuthenticated={isAuthenticated}
+        component={FriendDropletsPage}
+      />
+      <PrivateRoute
+        route="/friends/request"
+        isAuthenticating={isAuthenticating}
+        isAuthenticated={isAuthenticated}
+        component={FriendRequestsPage}
+      />
+    </Switch>
+  );
+}
+
 const Routes = () => (
   <AuthProvider>
     {(isAuthenticated, isAuthenticating) => (
-      <>
-        <Header isAuthenticated={isAuthenticated} />
-        <App>
-          <Container className="padding-top-2">
-            <SystemMessages />            
-            <Switch>
-              <RedirectRoute
-                exact
-                path="/"
-                component={SigninPage}
-                shouldRedirect={isAuthenticated}
-                redirectTo="/droplets"
-              />
-              <RedirectRoute
-                exact
-                path="/sign-in"
-                component={SigninPage}
-                shouldRedirect={isAuthenticated}
-                redirectTo="/droplets"
-              />
-              <RedirectRoute
-                path="/sign-up"
-                component={SignupPage}
-                shouldRedirect={isAuthenticated}
-                redirectTo="/droplets"
-              />
-              <PrivateRoute
-                path="/droplets"
-                isAuthenticating={isAuthenticating}
-                isAuthenticated={isAuthenticated}
-                component={OwnDropletsPage}
-              />
-              <PrivateRoute
-                exact
-                path="/friends"
-                isAuthenticating={isAuthenticating}
-                isAuthenticated={isAuthenticated}
-                component={FriendsPage}
-              />
-              <PrivateRoute
-                path="/friends/:id/droplets"
-                isAuthenticating={isAuthenticating}
-                isAuthenticated={isAuthenticated}
-                component={FriendDropletsPage}
-              />
-              <PrivateRoute
-                route="/friends/request"
-                isAuthenticating={isAuthenticating}
-                isAuthenticated={isAuthenticated}
-                component={FriendRequestsPage}
-              />
-            </Switch>
-          </Container>
+      <React.Fragment>
+        <Header isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating} />
+        <App className="my-16">
+          <SystemMessages />
+          <div className="xl:w-3/4 mx-auto">
+            { appPaths(isAuthenticated, isAuthenticating) }
+          </div>
         </App>
-      </>
+      </React.Fragment>
     )}
   </AuthProvider>
 );

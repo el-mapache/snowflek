@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import Button from '../button';
-import Message from '../message';
+import Message, { ErrorMessage } from '../message';
 
 const getForm = component => el => component.form = el;
 
@@ -25,15 +25,21 @@ const friendlyFormError = (formFields, maybeFieldName, message) => {
 
 class Form extends React.Component {
   static propTypes = {
-    button: PropTypes.oneOfType([ PropTypes.element, PropTypes.string ]),
+    button: PropTypes.oneOfType([
+      PropTypes.element,
+      PropTypes.string
+    ]),
     buttonClassname: PropTypes.string,
-    errors: PropTypes.oneOfType([ PropTypes.object, PropTypes.array ]),
+    errors: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
     onSubmit: PropTypes.func
   }
 
   form = null
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     const errorsFromServer = Object.entries(this.props.errors);
 
     // TODO: will want the form to take prefixes as well, in case nested errors are needed
@@ -60,15 +66,17 @@ class Form extends React.Component {
         {...rest}
         ref={getForm(this)}
       >
-        {({ handleSubmit, isSubmitting, errors }) => {
+        {({ handleSubmit, isSubmitting, dirty, errors, ...rest }) => {
           return (
-            <form className="ui form" onSubmit={handleSubmit}>
-              <Message message={errors.form} />
+            <form onSubmit={handleSubmit} noValidate>
+              <Message level="error" message={errors.form} ackable/>
               { this.props.children }
               <Button
-                className={this.props.buttonClassname}
-                disabled={isSubmitting}
+                disabled={!dirty || isSubmitting}
+                onClick={handleSubmit}
                 type="submit"
+                secondary
+                large
               >
                 { button }
               </Button>

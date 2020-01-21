@@ -1,8 +1,11 @@
 import React from 'react';
+import { Transition, config } from 'react-spring';
 import { connect } from 'react-redux';
 import { signInAction } from '../actions/auth';
-import Fieldset from '../components/fieldset';
+import FieldGroup from '../components/field-group';
 import Form from '../components/form';
+import Card from '../components/card';
+
 
 const mapStateToProps = ({ auth }) => ({
   errors: auth.errors
@@ -23,26 +26,40 @@ class SigninPage extends React.Component {
 
   render() {
     return (
-      <section id="sign-up">
-        <h2>Welcome back! Sign in to your account</h2>
-        <Form
-          button="Sign in"
-          errors={this.props.errors}
-          initialValues={this.state}
-          onSubmit={this.handleSubmit}
-        >
-          <Fieldset
-            label="Email"
-            name="email"
-            type="email"
-          />
-          <Fieldset
-            label="Password"
-            name="password"
-            type="password"
-          />
-        </Form>
-      </section>
+      <Transition
+        config={config.slow}
+        from={{ opacity: 0, transform: 'translateY(25%)' }}
+        enter={{ opacity: 1, transform: 'translateY(0%)' }}
+        leave={{ opacity: 0, transform: 'translateY(25%)' }}
+        native
+      >
+        {() => style => {
+          return (
+            <Card style={style} className="mx-auto">
+              <h3 className="mb-4 font-extrabold">
+                Welcome back! Sign in to your account
+              </h3>
+              <Form
+                button="Sign in"
+                errors={this.props.errors}
+                initialValues={this.state}
+                onSubmit={this.handleSubmit}
+              >
+                <FieldGroup
+                  label="Email"
+                  name="email"
+                  type="email"
+                />
+                <FieldGroup
+                  label="Password"
+                  name="password"
+                  type="password"
+                />
+              </Form>
+            </Card>
+          );
+        }}
+      </Transition>
     );
   }
 }

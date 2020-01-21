@@ -1,4 +1,3 @@
-import { Dimmer, Loader, Segment } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { getFriends } from '../actions/friends';
 import Friends from '../components/friends';
@@ -22,7 +21,7 @@ class FriendsPage extends React.Component {
     return (
       <React.Fragment>
         <h2>Your Friends</h2>
-          <Dimmer.Dimmable>
+          {/* <Dimmer.Dimmable>
             <Segment>
               <Friends friends={this.props.friends} />
             </Segment>
@@ -31,7 +30,7 @@ class FriendsPage extends React.Component {
                 Hang tight, we're finding your friends!
               </Loader>
             </Dimmer>
-          </Dimmer.Dimmable>
+          </Dimmer.Dimmable> */}
         
       </React.Fragment>
     );

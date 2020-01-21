@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
-import {
-  Container,
-  Menu,
-  Segment,
-} from 'semantic-ui-react';
+import Container from '../container';
+import Menu from '../menu';
 import { connect } from 'react-redux';
 import { signOutAction } from '../../actions/auth';
 import PropTypes from 'prop-types';
@@ -13,7 +10,6 @@ import AuthenticatedHeader from './authenticated';
 import UnauthenticatedHeader from './unauthenticated';
 
 
-const mapStateToProps = state => state;
 const mapDispatchToProps = dispatch => () => ({
   handleSignOut: signOutAction(dispatch)
 });
@@ -23,32 +19,33 @@ class Header extends React.Component {
     isAuthenticated: PropTypes.bool.isRequired
   }
 
-  state = {
-    activeItem: 'droplets'
-  }
-
   renderContextualHeader() {
-    return this.props.isAuthenticated ?
-      <AuthenticatedHeader handleSignOut={this.props.handleSignOut} /> :
-      <UnauthenticatedHeader />
+    console.log(this.props)
+    if (this.props.isAuthenticated) { 
+      return <AuthenticatedHeader handleSignOut={this.props.handleSignOut} />;
+    } else if (this.props.isAuthenticating === false) {
+      return <UnauthenticatedHeader />
+    }
+    
+    return null;
   }
 
   render() {
     return (
-      <Segment inverted>
-        <Menu secondary inverted pointing size="large">
+      <header className="bg-yellow-droplet border-solid border-b-4 border-yellow-droplet-dark py-1">
+        <Menu>
           <Container>
-            <Menu.Menu position="left">
-              <Menu.Item as={Link} to="/droplets">
+            <Menu.Menu position="left"> 
+              <Menu.Item as={Link} to="/">
                 <h4>slowdrip</h4>
               </Menu.Item>
             </Menu.Menu>
             {this.renderContextualHeader()}
           </Container>
         </Menu>
-      </Segment>
+      </header>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(state => state, mapDispatchToProps)(Header);

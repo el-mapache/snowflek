@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { findUser } from '../actions/users';
 import { getAllFriendRequests } from '../actions/friend-requests';
 import Form from '../components/form';
-import FieldSet from '../components/fieldset';
+import FieldGroup from '../components/field-group';
 import RequestFriend from '../components/request-friend';
 import YourFriendRequests from '../components/your-friend-requests';
 
@@ -54,7 +54,7 @@ class FriendRequestsPage extends React.Component {
           onSubmit={this.handleSubmit}
           validate={handleValidation}
         >
-          <FieldSet
+          <FieldGroup
             label="Enter your friend's email address"
             name="email"
             type="email"

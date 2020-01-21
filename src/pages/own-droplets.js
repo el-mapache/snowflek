@@ -55,10 +55,21 @@ class OwnDropletsPage extends React.Component {
       <CreateDroplet />;
   }
  
+  /** 
+   * TODO: All of these resource type pages shouldn't display a loading indicater as the sole content
+   * when data has been fetched previously. Rather, they should display the content they have already
+   * fetched, plus a sub-loading indicator for the content getting refreshed.
+   * Maybe:
+   * 
+   * <loadingPlaceholder />
+   * <contentlist />
+   * 
+   * With new content pushed to the top of the list
+   * */
   render() {
     return (      
       <section>
-        <Loader isLoading={this.props.isLoading}>
+        <Loader isLoading={this.props.isLoading && !this.props.droplets}>
           { this.renderDroplets() }
         </Loader>
       </section>

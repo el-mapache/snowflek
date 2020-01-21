@@ -1,5 +1,5 @@
-import { Menu } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
+import Menu from '../menu';
 import Button from '../button';
 import Link from '../link';
 import React from 'react';
@@ -27,10 +27,13 @@ const AuthenticatedHeader = ({ handleSignOut, location }) => {
           Friends
         </Link>
       </Menu.Item>
-      <Menu.Item>
-        <Button onClick={handleSignOut} className="inverted gray">
-          Sign out
-        </Button>
+      <Menu.Item
+        as={Link}
+        to="/sign-out"
+        onClick={handleSignOut}
+        className="border-solid border-b-2 border-transparent hover:border-purple-droplet"
+      >
+        Sign out
       </Menu.Item>
     </React.Fragment>
   );

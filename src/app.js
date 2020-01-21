@@ -1,7 +1,8 @@
-import React from 'react';
 import { connect } from 'react-redux';
-import { withCookies } from 'react-cookie';
 import { setCookie } from './actions/cookie';
+import { withCookies } from 'react-cookie';
+import Container from './components/container';
+import React from 'react';
 
 
 const mapStateToProps = state => state;
@@ -17,7 +18,7 @@ class App extends React.Component {
   }
  
   render() {
-    return this.props.children
+    return <Container as="main" {...this.props} />;
   }
 }
 
