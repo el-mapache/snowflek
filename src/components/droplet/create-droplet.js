@@ -27,7 +27,7 @@ const handleValidation = (values) => {
     errors.content = 'A droplet is limited to 300 characters.';
   }
 
-  return errors
+  return errors;
 }
 
 class CreateDroplet extends React.Component {

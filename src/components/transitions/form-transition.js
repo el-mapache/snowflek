@@ -1,12 +1,17 @@
 import { Transition, config } from 'react-spring';
 import React from 'react';
 
+const down = 'translateY(25%)';
+const up = 'translateY(0%)'
+const from = { opacity: 0, transform: down };
+const to = { opacity: 1, transform: up };
+
 const FormTransition = ({ children, ...rest }) => (
   <Transition
     config={config.slow}
-    from={{ opacity: 0, transform: 'translateY(25%)' }}
-    enter={{ opacity: 1, transform: 'translateY(0%)' }}
-    leave={{ opacity: 0, transform: 'translateY(25%)' }}
+    from={from}
+    enter={to}
+    leave={from}
     native
     {...rest}
   >

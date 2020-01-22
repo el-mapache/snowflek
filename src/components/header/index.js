@@ -1,8 +1,6 @@
 import { Link } from 'react-router-dom';
 import Container from '../container';
 import Menu from '../menu';
-import { connect } from 'react-redux';
-import { signOutAction } from '../../actions/auth';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -10,19 +8,18 @@ import AuthenticatedHeader from './authenticated';
 import UnauthenticatedHeader from './unauthenticated';
 
 
-const mapDispatchToProps = dispatch => () => ({
-  handleSignOut: signOutAction(dispatch)
-});
-
 class Header extends React.Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired
   }
 
+  state = {
+    resetActive: false
+  }
+
   renderContextualHeader() {
-    console.log(this.props)
     if (this.props.isAuthenticated) { 
-      return <AuthenticatedHeader handleSignOut={this.props.handleSignOut} />;
+      return <AuthenticatedHeader />;
     } else if (this.props.isAuthenticating === false) {
       return <UnauthenticatedHeader />
     }
@@ -36,8 +33,8 @@ class Header extends React.Component {
         <Menu>
           <Container>
             <Menu.Menu position="left"> 
-              <Menu.Item as={Link} to="/">
-                <h4>slowdrip</h4>
+              <Menu.Item as={Link} to="">
+                <h4 className="h4">slowdrip</h4>
               </Menu.Item>
             </Menu.Menu>
             {this.renderContextualHeader()}
@@ -48,4 +45,4 @@ class Header extends React.Component {
   }
 }
 
-export default connect(state => state, mapDispatchToProps)(Header);
+export default Header;

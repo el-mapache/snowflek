@@ -54,55 +54,8 @@ const MenuItem = styled.div`
   ${tw`cursor-pointer self-center mx-2 p-2`}
 `;
 
-const activeStyle = tw`border-solid border-b-2`;
+const activeStyle = tw`border-solid border-b-4 border-purple-droplet bg-offwhite rounded-t-lg p-2`;
 const darkStyle = tw`hover:bg-gray-700 text-white rounded`;
-
-// function StyledFactory() {
-//   const styledCache = (() => {
-//     let components = {};
-  
-//     return {
-//       getOrCreate(type, Component, styles) {
-//         let cached = components[type];
-  
-//         if (!cached) {
-//           cached = styled(Component)`${styles}`;
-//           components[type] = cached;
-//         }
-//         console.log(cached)
-//         return cached;
-//       }
-//     };
-//   })();
-
-//   return {
-//     build() {
-//       let extensions = {};
-//       let extensionkey = [];
-//       let StyledItem;
-      
-//       if (active) {
-//         extensions = { ...extensions, ...activeStyle };
-//         extensionkey.push('active');
-//       }
-    
-//       if (dark) {
-//         extensions = { ...extensions, ...darkStyle };
-//         extensionkey.push('dark');
-//       }
-    
-//       if (!Object.keys(extensions).length) {
-//         StyledItem = MenuItem;
-//       } else {
-//         StyledItem = styledCache.getOrCreate(extensionkey.join(' '), MenuItem, extensions);
-//       }
-    
-//       return (
-//         <StyledItem {...rest} children={children}/>
-//       );
-//     }
-//   }
-// }
 
 const styledCache = (() => {
   let components = {};

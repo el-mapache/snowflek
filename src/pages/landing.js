@@ -27,7 +27,7 @@ const LandingPage = () => (
         </Button>
       </div>
       <div className="xl:w-1/3 pl-4">
-        <img src={watercolor} className="absolute z-0 opacity-25 pointer-events-none" style={{ left: "25%", top: "-45%" }} />
+        <img src={watercolor} className="absolute z-0 opacity-25 pointer-events-none" style={{ left: "25%", top: "-30%" }} />
       </div>
     </div>
   </section>

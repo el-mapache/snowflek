@@ -8,7 +8,7 @@ const ButtonBase = styled.button`
   ${base}
 `;
 
-const success = tw`border-solid border-2 border-green-droplet-dark text-white bg-green-droplet-light hover:bg-green-droplet-dark hover:text-black hover:shadow`;
+const success = tw`border-solid border-2 border-green-droplet-dark text-black-droplet bg-green-droplet-light hover:bg-green-droplet-dark hover:text-black hover:shadow`;
 const SuccessButton = styled(ButtonBase)`
   ${success}
 `;
@@ -17,7 +17,7 @@ const OutlineButton = styled(ButtonBase)`
   ${tw`border-solid border-2 hover:shadow`}
 `;
 
-const sb = tw`border-solid border-2 border-blue-droplet-dark bg-blue-droplet text-droplet-black hover:bg-blue-droplet-dark hover:text-offwhite hover:shadow`;
+const sb = tw`border-solid border-2 border-blue-droplet-dark bg-blue-droplet text-droplet-black hover:bg-blue-droplet-dark hover:text-white hover:shadow`;
 const SecondaryButton = styled(ButtonBase)`
   ${sb}
 `;
