@@ -29,7 +29,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header className="bg-yellow-droplet border-solid border-b-4 border-yellow-droplet-dark py-1">
+      <header className="bg-yellow-droplet border-solid border-b-4 border-yellow-droplet-dark">
         <Menu>
           <Container>
             <Menu.Menu position="left"> 

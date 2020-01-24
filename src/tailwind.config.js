@@ -24,10 +24,11 @@ export default {
         purple: {
           ...defaultTheme.colors.purple,
           droplet: '#846085',
+          'droplet-light': '#c099c2'
         },
         midnight: '#2B4682',
-        // orange: '#F6A067',
-        // peach: '#FCD5B8',
+        orange: '#F6A067',
+        peach: '#FCD5B8',
         black: {
           ...defaultTheme.colors.black,
           droplet: '#24263d',

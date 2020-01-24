@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getDropletsForUser } from '../actions/droplets';
-import Droplet from '../components/droplet';
+import TodaysDroplets from '../components/droplets/todays-droplets';
 import Loader from '../components/loader';
 import CreateDroplet from '../components/droplet/create-droplet';
 import dropletValidator from '../validators/droplet';
@@ -33,17 +33,7 @@ class OwnDropletsPage extends React.Component {
     const dropletForToday = validator.dropletForToday();
 
     if (dropletForToday) {
-      return (
-        <div>
-          <h1>my droplets</h1>
-          { droplets.map((droplet) => (
-              <Droplet
-                content={droplet.content}
-                key={`${droplet.id}${droplet.created_at}`}
-              />
-          )) }
-        </div>
-      );
+      return <TodaysDroplets droplets={droplets} />
     }
 
     return this.renderDropletCreator(dropletForToday)
@@ -67,12 +57,10 @@ class OwnDropletsPage extends React.Component {
    * With new content pushed to the top of the list
    * */
   render() {
-    return (      
-      <section>
-        <Loader isLoading={this.props.isLoading && !this.props.droplets}>
-          { this.renderDroplets() }
-        </Loader>
-      </section>
+    return (         
+      <Loader isLoading={this.props.isLoading && !this.props.droplets}>
+        { this.renderDroplets() }
+      </Loader>
     );
   }
 }

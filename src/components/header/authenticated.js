@@ -13,9 +13,9 @@ const isActive = (currentPath, pathToMatch) => {
 const AuthenticatedHeader = ({ handleSignOut, location }) => {
   return (
     <React.Fragment>          
-      <Menu.Item as={Link} to="/friends/requests" active={isActive(location.pathname, '/friends/requests')}>
+      {/* <Menu.Item as={Link} to="/friends/requests" active={isActive(location.pathname, '/friends/requests')}>
         See friend requests
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item as={Link} to="/droplets" active={isActive(location.pathname, '/droplets')}>
         Droplets
       </Menu.Item>

@@ -1,9 +1,5 @@
 import React from 'react';
 
-const Loader = ({ isLoading, children }) => (
-  <div>
-    { isLoading ? 'loading' : children }
-  </div>
-);
+const Loader = ({ isLoading, children }) => isLoading ? 'loading' : children;
 
 export default Loader;
