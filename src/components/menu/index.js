@@ -51,11 +51,10 @@ const _Menu = ({ position, ...props}) => {
 
 
 const MenuItem = styled.div`
-  ${tw`cursor-pointer self-center mx-2 p-2`}
+  ${tw`cursor-pointer self-center mx-2 p-2 hover:bg-offwhite rounded`}
 `;
 
 const activeStyle = tw`border-solid border-b-4 border-purple-droplet bg-offwhite rounded-t-lg p-2`;
-const darkStyle = tw`hover:bg-gray-700 text-white rounded`;
 
 const styledCache = (() => {
   let components = {};
@@ -89,7 +88,7 @@ const styledCache = (() => {
  */
 
 
-const Item = ({ dark, active, ...props }) => {
+const Item = ({ active, ...props }) => {
   let extensions = {};
   let extensionkey = [];
   let StyledItem;
@@ -99,10 +98,6 @@ const Item = ({ dark, active, ...props }) => {
     extensionkey.push('active');
   }
 
-  if (dark) {
-    extensions = { ...extensions, ...darkStyle };
-    extensionkey.push('dark');
-  }
 
   if (!Object.keys(extensions).length) {
     StyledItem = MenuItem;

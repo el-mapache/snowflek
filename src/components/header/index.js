@@ -30,7 +30,7 @@ class Header extends React.Component {
   render() {
     return (
       <header className="bg-yellow-droplet border-solid border-b-4 border-yellow-droplet-dark">
-        <Menu>
+        <Menu className="y-scroll-offset">
           <Container>
             <Menu.Menu position="left"> 
               <Menu.Item as={Link} to="">

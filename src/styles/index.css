@@ -45,3 +45,7 @@ button a {
 button a:visited, button a:hover {
   color: inherit;
 }
+
+.y-scroll-offset {
+  margin-left: calc(100vw - 100%);
+}

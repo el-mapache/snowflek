@@ -2,7 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   variants: {
-    marginBottom: [ 'last' ]
+    'margin': [ 'last' ]
   },
   theme: {
     extend: {

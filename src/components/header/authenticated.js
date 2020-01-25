@@ -10,6 +10,8 @@ const isActive = (currentPath, pathToMatch) => {
   return currentPath === pathToMatch;
 };
 
+
+/// add hoverable prop to control hover state (we dont want certain elements to hover the same)
 const AuthenticatedHeader = ({ handleSignOut, location }) => {
   return (
     <React.Fragment>          
