@@ -27,7 +27,11 @@ export default {
           'droplet-light': '#c099c2'
         },
         midnight: '#2B4682',
-        orange: '#F6A067',
+        orange: {
+          ...defaultTheme.colors.orange,
+          droplet: '#F6A067',
+          'droplet-dark': "#d34612"
+        },
         peach: '#FCD5B8',
         black: {
           ...defaultTheme.colors.black,
@@ -42,5 +46,8 @@ export default {
         steelblue: '#2f3D58'
       }
     }
+  },
+  variants: {
+    margin: ['last']
   }
 };

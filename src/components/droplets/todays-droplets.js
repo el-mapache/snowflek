@@ -14,7 +14,7 @@ const TodaysDroplets = ({ droplets }) => {
         className="mx-auto"
         heading={
           <>
-            <h1 className="h2 text-offwhite font-serif" style={{ marginBottom: 0, marginTop: 0 }}>
+            <h1 className="h2 text-offwhite font-sans" style={{ marginBottom: 0, marginTop: 0 }}>
               Your droplets
             </h1>
             <h4 className="leading-tight text-yellow-droplet">

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik } from 'formik';
 import Button from '../button';
-import Message, { ErrorMessage } from '../message';
+import Message from '../message';
 
 const getForm = component => el => component.form = el;
 
@@ -65,11 +65,18 @@ class Form extends React.Component {
       <Formik
         {...rest}
         ref={getForm(this)}
+        validateOnBlur={false}
       >
-        {({ handleSubmit, isSubmitting, dirty, errors, ...rest }) => {
+        {({ handleSubmit, isSubmitting, dirty, errors, setErrors, ...rest }) => {
+          console.log(rest, errors)
           return (
             <form onSubmit={handleSubmit} noValidate>
-              <Message level="error" message={errors.form} ackable/>
+              <Message
+                level="error"
+                message={errors.form}
+                ackable
+                handleClear={() => setErrors({form: null })}
+              />
               { this.props.children }
               <Button
                 disabled={!dirty || isSubmitting}

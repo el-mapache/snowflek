@@ -1,45 +1,36 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import styled from 'styled-components';
-import tw from 'tailwind.macro';
-import { Field, ErrorMessage } from 'formik';
+import styledInputFactory from '../styled-input-factory';
+import { ErrorMessage } from 'formik';
 
-const inputClasses = tw`shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline`;
-const Textarea = styled.textarea`
-  ${inputClasses}
-`;
-const Input = styled.input`
-  ${inputClasses}
-`;
 
-const fieldFactory = (props) => {
-  let composedProps = props;
-
-  if (props.type === 'textarea') {
-    composedProps = {
-      ...props,
-      render({ field }) {
-        return (
-          <Textarea
-            id={field.name}
-            {...props}
-            {...field}
-          />
-        );
-      }
-    };
-  }
-
-  return <Input as={Field} id={props.name} {...composedProps} />
-}
+const propTypes = {
+  label: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.element,
+  ]).isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  /**
+   * Any other props not enumerated here will be passed directly
+   * to the input field. So, only valid HTML attrs should be supplied
+   */
+};
 
 const FieldGroup = ({ name, label, ...rest }) => (
   <div className="mb-8">
-    <label htmlFor={name} className="block font-semibold mb-2">
+    <label htmlFor={name} className="block font-semibold mb-2 text-">
       {label}
     </label>
-    { fieldFactory({ name, ...rest }) }
-    <ErrorMessage name={name} />
+    { styledInputFactory({ name, ...rest }) }
+    <ErrorMessage
+      component="p"
+      name={name}
+      className="text-orange-droplet-dark font-bold text-lg font-sans"
+    />
   </div>
 );
+
+FieldGroup.propTypes = propTypes;
 
 export default FieldGroup;

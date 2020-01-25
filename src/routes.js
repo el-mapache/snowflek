@@ -70,7 +70,7 @@ const Routes = () => (
       <React.Fragment>
         <Header isAuthenticated={isAuthenticated} isAuthenticating={isAuthenticating} />
         <App className="my-16">
-          <SystemMessages />
+          
           <div className="xl:w-3/4 mx-auto">
             { appPaths(isAuthenticated, isAuthenticating) }
           </div>

@@ -36,8 +36,8 @@ class SigninPage extends React.Component {
         {() => style => {
           return (
             <Card style={style} className="mx-auto">
-              <h3 className="mb-4 font-extrabold">
-                Welcome back! Sign in to your account
+              <h3 className="h3 font-extrabold">
+                Welcome back! Please sign in.
               </h3>
               <Form
                 button="Sign in"
@@ -49,11 +49,13 @@ class SigninPage extends React.Component {
                   label="Email"
                   name="email"
                   type="email"
+                  autoFocus
                 />
                 <FieldGroup
                   label="Password"
                   name="password"
                   type="password"
+                  autoComplete="password"
                 />
               </Form>
             </Card>

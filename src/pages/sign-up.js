@@ -37,7 +37,7 @@ class SignupPage extends React.Component {
           {() => props => {
             return (
               <Card style={props} className="mx-auto">
-                <h3 className="mb-12 font-extrabold">
+                <h3 className="h3 font-extrabold">
                   Hi, looks like you're new here!
                 </h3>
                 <Form

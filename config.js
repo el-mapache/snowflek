@@ -1,6 +1,9 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
+  variants: {
+    marginBottom: [ 'last' ]
+  },
   theme: {
     extend: {
       colors: {
@@ -27,7 +30,11 @@ module.exports = {
           'droplet-light': '#c099c2'
         },
         midnight: '#2B4682',
-        orange: '#F6A067',
+        orange: {
+          ...defaultTheme.colors.orange,
+          droplet: '#F6A067',
+          'droplet-dark': "#d34612"
+        },
         peach: '#FCD5B8',
         black: {
           ...defaultTheme.colors.black,
