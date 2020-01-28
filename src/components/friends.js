@@ -16,9 +16,7 @@ class Friends extends React.Component {
       <div>
         {
           friendsList.map((friend, index) =>
-            <>
-              <Friend friend={friend} key={`friend-${index}`} />
-            </>
+            <Friend friend={friend} key={`friend-${index}`} />
           )
         }
       </div>

@@ -21,9 +21,10 @@ class FriendsPage extends React.Component {
     return (
       <React.Fragment>
         <h2>Your Friends</h2>
+        <Friends friends={this.props.friends} />
           {/* <Dimmer.Dimmable>
             <Segment>
-              <Friends friends={this.props.friends} />
+              
             </Segment>
             <Dimmer active={this.props.isLoading}>
               <Loader active={this.props.isLoading} inline="centered">
