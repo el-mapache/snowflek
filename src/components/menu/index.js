@@ -51,9 +51,10 @@ const _Menu = ({ position, ...props}) => {
 
 
 const MenuItem = styled.div`
-  ${tw`cursor-pointer self-center mx-2 p-2 hover:bg-offwhite rounded`}
+  ${tw`cursor-pointer self-center mx-2 p-2`}
 `;
 
+const hoverStyle = tw`hover:bg-offwhite hover:rounded hover:shadow`
 const activeStyle = tw`border-solid border-b-4 border-purple-droplet bg-offwhite rounded-t-lg p-2`;
 
 const styledCache = (() => {
@@ -85,10 +86,15 @@ const styledCache = (() => {
  * 
  * - but this also means you might pontentially be storing a ton of different components and objects in
  *   memory depending on how complex your app is and how many overrides you have :/
+ * 
+ * - The main problem with using the tailwind macro and styled components is that they continually
+ * rewrite rules to the stylesheet. although the page has loaded and we are just appending data,
+ * repeated page reloads lead to a super bloated stylesheet. sc, or the macro, not sure which cant
+ * see to cache dynamic styles it has already resolved
  */
 
 
-const Item = ({ active, ...props }) => {
+const Item = ({ active, hover, ...props }) => {
   let extensions = {};
   let extensionkey = [];
   let StyledItem;
@@ -98,10 +104,16 @@ const Item = ({ active, ...props }) => {
     extensionkey.push('active');
   }
 
+  if (hover) {
+    extensions = { ...extensions, ...hoverStyle };
+    extensionkey.push('hover');
+  }
+
 
   if (!Object.keys(extensions).length) {
     StyledItem = MenuItem;
   } else {
+    console.log('cache hit')
     StyledItem = styledCache.getOrCreate(extensionkey.join(' '), MenuItem, extensions);
   }
 

@@ -5,14 +5,20 @@ import Loading from '../loader';
 const isOptimisticallyAuthenticated = (authenticating, authenticated) =>
   authenticating || authenticated;
 
-const PrivateRoute = ({ component: Component, isAuthenticating, isAuthenticated, ...rest }) => {
+const PrivateRoute = ({
+  component: Component,
+  isAuthenticating,
+  isAuthenticated,
+  redirectPath = '/',
+  ...rest
+}) => {
   return (
     <Route
       {...rest}
       render={(props ) => {
         let renderedComponent = (
           <Redirect to={{
-            pathname: '/',
+            pathname: redirectPath,
             state: { from: props.location }
           }} />
         );

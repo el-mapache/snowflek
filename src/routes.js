@@ -36,7 +36,9 @@ function appPaths(isAuthenticated, isAuthenticating) {
         redirectTo="/droplets"
       />
       <PrivateRoute
+        exact
         path="/droplets"
+        redirectPath="/sign-in"
         isAuthenticating={isAuthenticating}
         isAuthenticated={isAuthenticated}
         component={OwnDropletsPage}

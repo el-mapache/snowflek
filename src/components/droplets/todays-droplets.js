@@ -41,7 +41,3 @@ const TodaysDroplets = ({ droplets }) => {
 };
 
 export default TodaysDroplets;
-
-///**
-// * <div class="max-w-6xl rounded-lg bg-purple-droplet mx-auto pt-1"><h1 class="h3 mx-auto max-w-5xl text-white">Today's Droplets</h1><h4 class="h5 text-yellow-droplet mx-auto max-w-5xl shadow-md"><em>You've been writing for interpolated thing! Go you.</em></h4><section class="sc-dnqmqq cZhdAZ mx-auto max-w-5xl"><p>I like coyotes</p><p>Woof woof woof</p><p>Bark bark bark [friends]</p><p>I know calculus</p></section></div>
- //*/

@@ -10,18 +10,26 @@ const isActive = (currentPath, pathToMatch) => {
   return currentPath === pathToMatch;
 };
 
-
-/// add hoverable prop to control hover state (we dont want certain elements to hover the same)
 const AuthenticatedHeader = ({ handleSignOut, location }) => {
   return (
     <React.Fragment>          
       {/* <Menu.Item as={Link} to="/friends/requests" active={isActive(location.pathname, '/friends/requests')}>
         See friend requests
       </Menu.Item> */}
-      <Menu.Item as={Link} to="/droplets" active={isActive(location.pathname, '/droplets')}>
+      <Menu.Item
+        as={Link}
+        to="/droplets"
+        active={isActive(location.pathname, '/droplets')}
+        hover
+      >
         Droplets
       </Menu.Item>
-      <Menu.Item as={Link} to="/friends" active={isActive(location.pathname, '/friends')}>
+      <Menu.Item
+        as={Link}
+        to="/friends"
+        active={isActive(location.pathname, '/friends')}
+        hover
+      >
         Friends
       </Menu.Item>
       <Menu.Item

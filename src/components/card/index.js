@@ -8,7 +8,7 @@ const Card = styled(animated.div)`
 `;
 
 const CardForHeading = styled(animated.div)`
-  ${tw`bg-white shadow-md rounded-lg rounded-tl-none rounded-tr-none px-8 pt-6 pb-8 mb-4 w-full max-w-lg`}
+  ${tw`bg-white shadow-md rounded-lg rounded-tl-none rounded-tr-none px-8 pt-6 pb-4 mb-4 w-full max-w-lg`}
 `;
 
 const HeadingCard = ({ heading, ...rest }) => (

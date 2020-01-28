@@ -40,6 +40,10 @@ class Form extends React.Component {
   form = null
 
   componentDidUpdate() {
+    if (!this.props.errors) {
+      return;
+    }
+
     const errorsFromServer = Object.entries(this.props.errors);
 
     // TODO: will want the form to take prefixes as well, in case nested errors are needed
