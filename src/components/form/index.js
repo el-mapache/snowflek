@@ -71,8 +71,7 @@ class Form extends React.Component {
         ref={getForm(this)}
         validateOnBlur={false}
       >
-        {({ handleSubmit, isSubmitting, dirty, errors, setErrors, ...rest }) => {
-          console.log(rest, errors)
+        {({ handleSubmit, isSubmitting, dirty, errors, setErrors }) => {
           return (
             <form onSubmit={handleSubmit} noValidate>
               <Message

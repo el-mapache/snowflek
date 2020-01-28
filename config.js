@@ -2,7 +2,8 @@ const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   variants: {
-    'margin': [ 'last' ]
+    'margin': [ 'last' ],
+    'border': [ 'hover' ]
   },
   theme: {
     extend: {

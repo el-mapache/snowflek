@@ -6,8 +6,10 @@ import Link from '../link';
 import React from 'react';
 
 
+
 const isActive = (currentPath, pathToMatch) => {
-  return currentPath === pathToMatch;
+  const path = currentPath.split('/')[1];
+  return `/${path}` === pathToMatch;
 };
 
 const AuthenticatedHeader = ({ handleSignOut, location }) => {

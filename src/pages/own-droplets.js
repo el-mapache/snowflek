@@ -25,10 +25,6 @@ class OwnDropletsPage extends React.Component {
   renderDroplets() {
     const { droplets } = this.props;
 
-    if (!droplets.length) {
-      return null;
-    }
-
     const validator = dropletValidator(droplets[0]);
     const dropletForToday = validator.dropletForToday();
 

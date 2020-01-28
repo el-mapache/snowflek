@@ -113,7 +113,6 @@ const Item = ({ active, hover, ...props }) => {
   if (!Object.keys(extensions).length) {
     StyledItem = MenuItem;
   } else {
-    console.log('cache hit')
     StyledItem = styledCache.getOrCreate(extensionkey.join(' '), MenuItem, extensions);
   }
 
