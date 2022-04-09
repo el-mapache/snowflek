@@ -11,7 +11,7 @@
     "gulp-clean-css": "^4.0.0",
     "gulp-help": "^1.6.1",
     "keymirror": "^0.1.1",
-    "moment": "^2.23.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.23",
     "normalizr": "^3.3.0",
     "react": "^16.7.0",
